@@ -5,8 +5,3 @@ lexik_jwt_authentication:
     # 86400 = 24 hours
     token_ttl: 3600
     user_identity_field: email
-
-#   secret_key:       '%kernel.project_dir%/config/jwt/private.pem' 
-#     public_key:       '%kernel.project_dir%/config/jwt/public.pem'  
-#     pass_phrase:      'your_secret_passphrase' 
-#     token_ttl:        3600

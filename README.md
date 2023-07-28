@@ -49,7 +49,7 @@ php bin/console doctrine:migrations:migrate
 ```
 6. Create a super administrator:
 ```bash
-php bin/console app:create-super-admin email@example.com password
+php bin/console app:create-super-admin admin@coachvoice.com admin123
 ```
 
 ### React
