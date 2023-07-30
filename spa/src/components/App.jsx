@@ -16,23 +16,13 @@ import Footer from './Footer';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import RegistrationPage from './RegistrationPage';
-import AccountActivationConfirmationPage from './AccountActivationConfirmationPage';
-import PasswordResetRequestPage from './PasswordResetRequestPage';
-import PasswordResetPage from './PasswordResetPage';
-import SettingsPage from './SettingsPage';
-import EmailChangeConfirmationPage from './EmailChangeConfirmationPage';
 import UserListPage from './UserListPage';
 import UserDetailsPage from './UserDetailsPage';
 import withError404 from './withError404';
 import {
   ROUTE_HOME,
   ROUTE_LOGIN,
-  ROUTE_PASSWORD_RESET_REQUEST,
-  ROUTE_PASSWORD_RESET,
   ROUTE_REGISTRATION,
-  ROUTE_ACCOUNT_ACTIVATION_CONFIRMATION,
-  ROUTE_SETTINGS,
-  ROUTE_EMAIL_CHANGE_CONFIRMATION,
   ROUTE_USER_LIST,
   ROUTE_USER_DETAILS,
   BACKEND_ROUTE_DASHBOARD,
@@ -136,11 +126,6 @@ class App extends React.Component<Props> {
             <Route exact path={ROUTE_HOME} component={HomePage} />
             <Route exact path={ROUTE_LOGIN} component={LoginPage} />
             <Route exact path={ROUTE_REGISTRATION} component={RegistrationPage} />
-            <Route exact path={ROUTE_ACCOUNT_ACTIVATION_CONFIRMATION} component={AccountActivationConfirmationPage} />
-            <Route exact path={ROUTE_PASSWORD_RESET_REQUEST} component={PasswordResetRequestPage} />
-            <Route exact path={ROUTE_PASSWORD_RESET} component={PasswordResetPage} />
-            <Route exact path={ROUTE_SETTINGS} component={SettingsPage} />
-            <Route exact path={ROUTE_EMAIL_CHANGE_CONFIRMATION} component={EmailChangeConfirmationPage} />
             <Route exact path={ROUTE_USER_LIST} component={UserListPage} />
             <Route exact path={ROUTE_USER_DETAILS} component={UserDetailsPage} />
             <Route component={withError404(() => (null))} />
