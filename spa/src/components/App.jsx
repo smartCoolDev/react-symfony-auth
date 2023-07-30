@@ -12,7 +12,6 @@ import Error401Page from './Error401Page';
 import Error403Page from './Error403Page';
 import Error404Page from './Error404Page';
 import Header from './Header';
-import Footer from './Footer';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import RegistrationPage from './RegistrationPage';
@@ -98,7 +97,6 @@ class App extends React.Component<Props> {
             <Route exact path={ROUTE_USER_DETAILS} component={UserDetailsPage} />
             <Route component={withError404(() => (null))} />
           </Switch>
-          <Footer />
         </div>
       </div>
     );

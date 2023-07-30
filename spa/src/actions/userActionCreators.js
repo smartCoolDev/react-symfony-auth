@@ -50,18 +50,11 @@ import type {
   RegistrationFormUpdatingAction,
   LoginFormUpdatingAction,
   PasswordResetRequestFormUpdatingAction,
-  PasswordResetFormUpdatingAction,
   PasswordChangeFormUpdatingAction,
   EmailChangeFormUpdatingAction,
-  BackendUserCreationFormUpdatingAction,
-  BackendUserUpdatingFormUpdatingAction,
 } from "../actions/actionCreatorTypes.js.flow";
 import type { LoginFormData } from "../api/authorizationCalls";
-import type {
-  RegistrationFormData,
-  BackendUserCreatingFormData,
-  BackendUserUpdatingFormData,
-} from "../api/userCalls";
+import type { RegistrationFormData } from "../api/userCalls";
 import type { PasswordChangeFormData } from "../api/accountCalls";
 import type {
   PasswordResetRequestFormData,
