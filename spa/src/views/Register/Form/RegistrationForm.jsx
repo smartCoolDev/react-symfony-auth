@@ -191,6 +191,10 @@ class RegistrationForm extends React.Component<Props, State> {
       />
     );
     if (this.state.isTouched) {
+      nameInput = React.cloneElement(
+        nameInput,
+        { className: this.state.errors.name !== '' ? 'form-control is-invalid' : 'form-control is-valid' },
+      );
       emailInput = React.cloneElement(
         emailInput,
         { className: this.state.errors.email !== '' ? 'form-control is-invalid' : 'form-control is-valid' },
@@ -210,7 +214,7 @@ class RegistrationForm extends React.Component<Props, State> {
         <div className="form-group">
           <div className='mb-4'>
             {nameInput}
-            <div className="invalid-feedback">{this.state.errors.email}</div>
+            <div className="invalid-feedback">{this.state.errors.name}</div>
           </div>         
           <div className="mb-4">
             {emailInput}

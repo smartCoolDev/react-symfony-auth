@@ -5,7 +5,7 @@
     font-style: normal;
     font-weight: 600;
     display: flex;
-    padding: 10px 18px;
+    padding: 10px 18px !important;
     justify-content: center;
     align-items: center;
 }
