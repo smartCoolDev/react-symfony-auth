@@ -1,4 +1,4 @@
-# Symfony-React RESTful Boilerplate
+# Symfony-React
 
 A boilerplate with two separated applications: RESTful API (created through the Symfony 4 PHP framework) and SPA (the React JavaScript library respectively).
 It contains a user implementation with advanced functions suitable for most projects. The following features are included:
@@ -47,11 +47,6 @@ php bin/console doctrine:database:create
 php bin/console doctrine:migrations:diff
 php bin/console doctrine:migrations:migrate
 ```
-6. Create a super administrator:
-```bash
-php bin/console app:create-super-admin admin@coachvoice.com admin123
-```
-
 ### React
 
 1. Install application dependencies:
