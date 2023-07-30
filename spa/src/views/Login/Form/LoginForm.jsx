@@ -3,6 +3,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom'
 
 import type { Dispatch } from 'redux';
 
@@ -11,7 +12,9 @@ import userActionCreators from '../../../actions/userActionCreators';
 import type { UserState, RootState } from '../../../reducers/reducerTypes.js.flow';
 import type { UserActionCreators } from '../../../actions/actionCreatorTypes.js.flow';
 
+import Button from '../../../components/common/Button';
 import '../login.css'
+import { ROUTE_REGISTRATION } from '../../../constants/routeConstants';
 
 type MappedState = {| +user: UserState |};
 
@@ -112,6 +115,7 @@ class LoginForm extends React.Component<Props, State> {
         value={this.state.values.email}
         className="form-control"
         onChange={this.handleChange}
+        placeholder='Enter your email'
         required
       />
     );
@@ -139,16 +143,22 @@ class LoginForm extends React.Component<Props, State> {
     return (
       <form onSubmit={this.handleSubmitting} noValidate>
         <div className="form-group">
-          <label htmlFor="email">Email</label>
-          {emailInput}
-          <div className="invalid-feedback">{this.state.errors.email}</div>
+          <div className='mb-4'>
+            <label htmlFor="email">Email</label>
+            {emailInput}
+            <div className="invalid-feedback">{this.state.errors.email}</div>
+          </div>
+          <div>
+            <label htmlFor="password">Password</label>
+            {passwordInput}
+            <div className="invalid-feedback">{this.state.errors.password}</div>
+          </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          {passwordInput}
-          <div className="invalid-feedback">{this.state.errors.password}</div>
+        <Button disabled={this.state.isSubmitted} size='large'>Sign in</Button>
+        <div className='d-flex justify-content-center align-items-center'>
+          Don't have an account? 
+          <NavLink to={ROUTE_REGISTRATION} className="nav-link signup-navlink" activeClassName="active">Sign Up</NavLink>
         </div>
-        <button className="btn btn-primary" disabled={this.state.isSubmitted}>Sign in</button>
       </form>
     );
   }

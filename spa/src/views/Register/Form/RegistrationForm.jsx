@@ -3,7 +3,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import { NavLink } from 'react-router-dom';
 import type { Dispatch } from 'redux';
 
 import { URL_APP_ACCOUNT_ACTIVATION_CONFIRMATION } from '../../../constants/callConstants';
@@ -11,6 +11,10 @@ import userActionCreators from '../../../actions/userActionCreators';
 
 import type { UserState, RootState } from '../../../reducers/reducerTypes.js.flow';
 import type { UserActionCreators } from '../../../actions/actionCreatorTypes.js.flow';
+
+import Button from '../../../components/common/Button';
+import '../register.css'
+import { ROUTE_LOGIN } from '../../../constants/routeConstants';
 
 type MappedState = {| +user: UserState |};
 
@@ -29,8 +33,8 @@ function getDefaultState(): State {
   return {
     isTouched: false,
     isSubmitted: false,
-    values: { email: '', password: '', passwordRepeat: '' },
-    errors: { email: '', password: '', passwordRepeat: '' },
+    values: { name: '', email: '', password: '', passwordRepeat: '' },
+    errors: { name:'',  email: '', password: '', passwordRepeat: '' },
   };
 }
 
@@ -71,6 +75,7 @@ class RegistrationForm extends React.Component<Props, State> {
     }
 
     const data = {
+      name: this.state.values.name,
       email: this.state.values.email,
       password: this.state.values.password,
       appURL: URL_APP_ACCOUNT_ACTIVATION_CONFIRMATION,
@@ -85,6 +90,18 @@ class RegistrationForm extends React.Component<Props, State> {
     const errors = this.state.errors;
     let password = '';
     [...form.elements].forEach((item) => {
+      if (item.name === 'name') {
+        if (!(item instanceof HTMLInputElement)) {
+          throw new TypeError('Invalid instance type.');
+        }
+
+        let error = '';
+        if (item.value === '') {
+          error = 'Please enter a value.';
+          isValid = false;
+        }
+        errors[item.name] = error;
+      }
       if (item.name === 'email') {
         if (!(item instanceof HTMLInputElement)) {
           throw new TypeError('Invalid instance type.');
@@ -132,9 +149,20 @@ class RegistrationForm extends React.Component<Props, State> {
   }
 
   render(): React$Node {
+    let nameInput = (
+      <input
+        name="name"
+        value={this.state.values.name}
+        className="form-control"
+        placeholder='Name'
+        onChange={this.handleChange}
+        required
+      />
+    );
     let emailInput = (
       <input
         name="email"
+        placeholder='Email'
         value={this.state.values.email}
         className="form-control"
         onChange={this.handleChange}
@@ -143,6 +171,7 @@ class RegistrationForm extends React.Component<Props, State> {
     );
     let passwordInput = (
       <input
+        placeholder='Password'
         type="password"
         name="password"
         value={this.state.values.password}
@@ -179,21 +208,24 @@ class RegistrationForm extends React.Component<Props, State> {
     return (
       <form onSubmit={this.handleSubmitting} noValidate>
         <div className="form-group">
-          <label htmlFor="email">Email</label>
-          {emailInput}
-          <div className="invalid-feedback">{this.state.errors.email}</div>
+          <div className='mb-4'>
+            {nameInput}
+            <div className="invalid-feedback">{this.state.errors.email}</div>
+          </div>         
+          <div className="mb-4">
+            {emailInput}
+            <div className="invalid-feedback">{this.state.errors.email}</div>
+          </div>
+          <div className="mb-4">
+            {passwordInput}
+            <div className="invalid-feedback">{this.state.errors.password}</div>
+          </div>
+          <Button className='mb-4' disabled={this.state.isSubmitted} size='large'>Get Started</Button>
+          <div className='d-flex justify-content-center align-items-center'>
+            Already have an account? 
+          <NavLink to={ROUTE_LOGIN} className="nav-link signup-navlink" activeClassName="active">Log in</NavLink>
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          {passwordInput}
-          <div className="invalid-feedback">{this.state.errors.password}</div>
         </div>
-        <div className="form-group">
-          <label htmlFor="passwordRepeat">Repeat password</label>
-          {passwordRepeatInput}
-          <div className="invalid-feedback">{this.state.errors.passwordRepeat}</div>
-        </div>
-        <button className="btn btn-primary" disabled={this.state.isSubmitted}>Register</button>
       </form>
     );
   }

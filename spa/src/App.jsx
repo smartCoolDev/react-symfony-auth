@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { BrowserRouter, Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -12,8 +12,9 @@ import Error401Page from './views/Error/Error401Page';
 import Error403Page from './views/Error/Error403Page';
 import Error404Page from './views/Error/Error404Page';
 import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
 import LoginPage from './views/Login/LoginPage';
-import RegistrationPage from './views/Regist/RegistrationPage';
+import RegistrationPage from './views/Register/RegistrationPage';
 import UserDetailsPage from './views/UserDetails/UserDetailsPage';
 import withError404 from './components/hoc/withError404';
 import {
@@ -87,15 +88,14 @@ class App extends React.Component<Props> {
         {alerts.props.children !== null ? alerts : null}
         <Header />
         <div className="container d-flex justify-content-center">
-          <BrowserRouter>
             <Switch>
               <Route exact path={ROUTE_LOGIN} component={LoginPage} />
               <Route exact path={ROUTE_REGISTRATION} component={RegistrationPage} />
               <Route exact path={ROUTE_USER_DETAILS} component={UserDetailsPage} />
               <Route component={withError404(() => (null))} />
             </Switch>
-          </BrowserRouter>
         </div>
+        <Footer />
       </div>
     );
   }

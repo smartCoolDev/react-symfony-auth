@@ -7,6 +7,7 @@ type Props = {
   size?: 'small' | 'medium' | 'large',
   disabled?: boolean,
   onClick?: () => void,
+  className?: string
 };
 
 class Button extends React.Component<Props> {
@@ -17,21 +18,30 @@ class Button extends React.Component<Props> {
   };
 
   render() {
-    const { children, variant, size, disabled, onClick } = this.props;
+    const { children, variant, size, disabled, className, onClick } = this.props;
 
     return (
-      <button onClick={onClick}>
+      <button onClick={onClick} className={className}>
         {children}
-        <style jsx>{`
+        <style>{`
           button {
-            padding: ${size === 'small' ? '5px 10px' : size === 'medium' ? '10px 20px' : '15px 30px'};
-            font-size: ${size === 'small' ? '12px' : size === 'medium' ? '16px' : '20px'};
-            background-color: ${variant === 'primary' ? '#007bff' : '#6c757d'};
-            color: #fff;
-            border: none;
-            border-radius: 4px;
+            padding: ${size === 'small' ? '10px 16px' : size === 'medium' ? '10px 20px' : '15px 30px'};
+            width: ${size === 'large' ? '100%' : 'auto'};
+            font-size: 14px;
+            color: #344054;
             cursor: ${disabled ? 'not-allowed' : 'pointer'};
-            opacity: ${disabled ? 0.5 : 1};
+            border-radius: 8px;
+            border: 1px solid #D0D5DD;
+            background: #FFF;
+            box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+          }
+
+          button:hover {
+            border-radius: 8px;
+            border: 1px solid #CC5200;
+            background: #CC5200;
+            color: white;
+            box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
           }
         `}</style>
       </button>
