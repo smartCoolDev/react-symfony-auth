@@ -1,8 +1,5 @@
 # Symfony-React
 
-A boilerplate with two separated applications: RESTful API (created through the Symfony 4 PHP framework) and SPA (the React JavaScript library respectively).
-It contains a user implementation with advanced functions suitable for most projects. The following features are included:
-
 - JWT authentication
 - Registration
 - Account management

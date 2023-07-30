@@ -13,7 +13,6 @@ import {
   USER_DETAILS_UPDATE,
   LOGIN_FORM_UPDATE,
   REGISTRATION_FORM_UPDATE,
-  PASSWORD_CHANGE_FORM_UPDATE,
 } from "../constants/actionTypeConstants";
 import { ROUTE_LOGIN, ROUTE_USER_DETAILS } from "../constants/routeConstants";
 import { create as createAuthorization } from "../api/authorizationCalls";
@@ -180,45 +179,6 @@ export function viewAccount(): Function {
     });
 }
 
-type PasswordChangeAction =
-  | AppNotificationAddingAction
-  | UserIdentityUpdatingAction
-  | PasswordChangeFormUpdatingAction;
-
-export function changePassword(formData: PasswordChangeFormData): Function {
-  return (dispatch: Dispatch<PasswordChangeAction>): Promise<void> =>
-    updateAccount(formData).then((response) => {
-      switch (response.status) {
-        case 200:
-          dispatch({
-            type: PASSWORD_CHANGE_FORM_UPDATE,
-            errors: {},
-            reset: true,
-          });
-          dispatch({
-            type: APP_NOTIFICATIONS_ADD,
-            tag: "success",
-            message: "Your password has been changed successfully.",
-            redirect: false,
-          });
-          break;
-        case 401:
-          dispatch({ type: USER_IDENTITY_UPDATE, token: null });
-          dispatch(push(ROUTE_LOGIN));
-          break;
-        case 422:
-          dispatch({
-            type: PASSWORD_CHANGE_FORM_UPDATE,
-            errors: response.body.errors,
-            reset: false,
-          });
-          break;
-        default:
-          throw new Error("Unexpected response returned.");
-      }
-    });
-}
-
 export function viewToken(token: string): Function {
   return (dispatch: Dispatch<UserTokenUpdatingAction>): Promise<void> =>
     readToken(token).then((response) => {
@@ -255,7 +215,5 @@ export default {
   viewOne,
 
   viewAccount,
-  changePassword,
-
   viewToken,
 };

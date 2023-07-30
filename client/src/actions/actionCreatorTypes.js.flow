@@ -85,12 +85,6 @@ export type RegistrationFormUpdatingAction = {|
   +reset: boolean,
 |};
 
-export type PasswordChangeFormUpdatingAction = {|
-  type: 'PASSWORD_CHANGE_FORM_UPDATE',
-  +errors: { [key: string]: string | Array<string> },
-  +reset: boolean,
-|};
-
 export type EmailChangeFormUpdatingAction = {|
   type: 'EMAIL_CHANGE_FORM_UPDATE',
   +errors: { [key: string]: string | Array<string> },
@@ -117,7 +111,6 @@ export type UserAction =
   | PasswordResetRequestFormUpdatingAction
   | PasswordResetFormUpdatingAction
   | RegistrationFormUpdatingAction
-  | PasswordChangeFormUpdatingAction
   | EmailChangeFormUpdatingAction
   | BackendUserCreationFormUpdatingAction
   | BackendUserUpdatingFormUpdatingAction;
