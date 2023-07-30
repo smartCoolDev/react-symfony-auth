@@ -11,11 +11,13 @@ import {
   ROUTE_LOGIN,
   ROUTE_REGISTRATION,
   ROUTE_USER_DETAILS,
-} from '../constants/routeConstants';
-import userActionCreators from '../actions/userActionCreators';
+} from '../../constants/routeConstants';
+import userActionCreators from '../../actions/userActionCreators';
 
 import type { UserState, RootState } from '../reducers/reducerTypes.js.flow';
 import type { UserActionCreators } from '../actions/actionCreatorTypes.js.flow';
+
+import './header.css'
 
 type MappedState = {| +user: UserState |};
 
@@ -32,8 +34,8 @@ class Header extends React.Component<Props> {
   render(): React$Node {
     let navLinks = (
       <ul className="navbar-nav ml-auto">
-        <NavLink to={ROUTE_LOGIN} className="nav-link" activeClassName="active">Log in</NavLink>
-        <NavLink to={ROUTE_REGISTRATION} className="nav-link" activeClassName="active">Register</NavLink>
+        <NavLink to={ROUTE_LOGIN} className="nav-link btn-header" activeClassName="active">Log in</NavLink>
+        <NavLink to={ROUTE_REGISTRATION} className="nav-link btn-header" activeClassName="active">Register</NavLink>
       </ul>
     );
     if (this.props.user.identity.id !== null) {
@@ -56,16 +58,19 @@ class Header extends React.Component<Props> {
     }
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+      <nav className="navbar navbar-expand-lg mb-4">
         <div className="container">
-          <button
+          {/* <button
             type="button"
             className="navbar-toggler"
             data-toggle="collapse"
             data-target="#main-nav"
             aria-controls="main-nav"
             aria-expanded="false"
-          ><span className="navbar-toggler-icon" /></button>
+          ><span className="navbar-toggler-icon" /></button> */}
+          <div className='logo'>
+            CV
+          </div>
           <div id="main-nav" className="collapse navbar-collapse">
             {navLinks}
           </div>

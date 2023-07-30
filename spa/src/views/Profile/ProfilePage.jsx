@@ -7,10 +7,10 @@ import moment from 'moment';
 
 import type { Dispatch } from 'redux';
 
-import Loading from './Loading';
-import withErrorIfWrongRole from './withErrorIfWrongRole';
-import userActionCreators from '../actions/userActionCreators';
-import { getValueAlias } from '../utils/userHelper';
+import Loading from '../../components/common/Loading';
+import withErrorIfWrongRole from '../../components/HOC/withErrorIfWrongRole';
+import userActionCreators from '../../actions/userActionCreators';
+import { getValueAlias } from '../../utils/userHelper';
 
 import type { UserState, RootState } from '../reducers/reducerTypes.js.flow';
 import type { UserActionCreators } from '../actions/actionCreatorTypes.js.flow';

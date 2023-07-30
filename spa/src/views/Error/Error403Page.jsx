@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import Error from './Error';
+import Error from '../../components/common/Error';
 
 export default function Error403Page(): React$Node {
   return (

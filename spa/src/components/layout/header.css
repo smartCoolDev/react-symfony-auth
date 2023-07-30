@@ -1,0 +1,36 @@
+.btn-header {
+    color: #475467 !important;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    display: flex;
+    padding: 10px 18px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-header:hover {
+    border-radius: 8px;
+    background: #CC5200;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF !important;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.logo {
+    width: 32px;
+    height: 32px;
+    background-color: #333F48;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}

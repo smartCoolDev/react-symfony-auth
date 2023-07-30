@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-import RegistrationForm from './RegistrationForm';
-import withRedirectionIfAuthenticated from './withRedirectionIfAuthenticated';
+import RegistrationForm from './Form/RegistrationForm';
+import withRedirectionIfAuthenticated from '../../components/hoc/withRedirectionIfAuthenticated';
 
 function RegistrationPage(): React$Node {
   return (

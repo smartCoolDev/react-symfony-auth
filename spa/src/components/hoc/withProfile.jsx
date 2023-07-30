@@ -4,9 +4,9 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import ProfilePage from './ProfilePage';
+import ProfilePage from '../../views/Profile/ProfilePage';
 
-import type { UserState, RootState } from '../reducers/reducerTypes.js.flow';
+import type { UserState, RootState } from '../../reducers/reducerTypes.js.flow';
 
 function getDisplayName(WrappedComponent: React$ComponentType<*>): string {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';

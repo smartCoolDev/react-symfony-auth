@@ -8,14 +8,14 @@ import moment from 'moment';
 
 import type { Dispatch } from 'redux';
 
-import Loading from './Loading';
-import Error from './Error';
-import withProfile from './withProfile';
-import userActionCreators from '../actions/userActionCreators';
-import { getValueAlias } from '../utils/userHelper';
+import Loading from '../../components/common/Loading';
+import Error from '../../components/common/Error';
+import withProfile from '../../components/HOC/withProfile';
+import userActionCreators from '../../actions/userActionCreators';
+import { getValueAlias } from '../../utils/userHelper';
 
-import type { UserState, RootState } from '../reducers/reducerTypes.js.flow';
-import type { UserActionCreators } from '../actions/actionCreatorTypes.js.flow';
+import type { UserState, RootState } from '../../reducers/reducerTypes.js.flow';
+import type { UserActionCreators } from '../../actions/actionCreatorTypes.js.flow';
 
 type Router = {| +match: Object |};
 

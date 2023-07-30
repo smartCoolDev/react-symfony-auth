@@ -4,10 +4,10 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import appActionCreators from '../actions/appActionCreators';
+import appActionCreators from '../../actions/appActionCreators';
 
-import type { UserState, RootState } from '../reducers/reducerTypes.js.flow';
-import type { AppActionCreators } from '../actions/actionCreatorTypes.js.flow';
+import type { UserState, RootState } from '../../reducers/reducerTypes.js.flow';
+import type { AppActionCreators } from '../../actions/actionCreatorTypes.js.flow';
 
 function getDisplayName(WrappedComponent: React$ComponentType<*>): string {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
