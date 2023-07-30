@@ -8,10 +8,8 @@ import { connect } from 'react-redux';
 import type { Dispatch } from 'redux';
 
 import {
-  ROUTE_HOME,
   ROUTE_LOGIN,
   ROUTE_REGISTRATION,
-  ROUTE_USER_LIST,
   ROUTE_USER_DETAILS,
 } from '../constants/routeConstants';
 import userActionCreators from '../actions/userActionCreators';
@@ -60,7 +58,6 @@ class Header extends React.Component<Props> {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div className="container">
-          <Link to={ROUTE_HOME} className="navbar-brand" >RESTful Boilerplate</Link>
           <button
             type="button"
             className="navbar-toggler"
@@ -70,9 +67,6 @@ class Header extends React.Component<Props> {
             aria-expanded="false"
           ><span className="navbar-toggler-icon" /></button>
           <div id="main-nav" className="collapse navbar-collapse">
-            <ul className="navbar-nav">
-              <NavLink exact to={ROUTE_HOME} className="nav-link" activeClassName="active">Home</NavLink>
-            </ul>
             {navLinks}
           </div>
         </div>

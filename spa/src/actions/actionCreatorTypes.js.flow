@@ -133,8 +133,6 @@ export type UserActionCreators = {|
   +viewAccount: Function,
   +changePassword: Function,
 
-  +requestPasswordReset: Function,
-  +changeEmail: Function,
   +viewToken: Function,
   +confirmAccountActivation: Function,
   +resetPassword: Function,

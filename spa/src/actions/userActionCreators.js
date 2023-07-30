@@ -12,22 +12,12 @@ import {
   USER_LIST_UPDATE,
   USER_DETAILS_UPDATE,
   LOGIN_FORM_UPDATE,
-  PASSWORD_RESET_REQUEST_FORM_UPDATE,
-  PASSWORD_RESET_FORM_UPDATE,
   REGISTRATION_FORM_UPDATE,
   PASSWORD_CHANGE_FORM_UPDATE,
-  EMAIL_CHANGE_FORM_UPDATE,
-  BACKEND_USER_CREATION_FORM_UPDATE,
-  BACKEND_USER_UPDATING_FORM_UPDATE,
 } from "../constants/actionTypeConstants";
-import {
-  ROUTE_HOME,
-  ROUTE_LOGIN,
-  ROUTE_SETTINGS,
-  BACKEND_ROUTE_USER_LIST,
-} from "../constants/routeConstants";
+import { ROUTE_LOGIN, ROUTE_USER_DETAILS } from "../constants/routeConstants";
 import { create as createAuthorization } from "../api/authorizationCalls";
-import { index, create, read, update, destroy } from "../api/userCalls";
+import { index, create, read } from "../api/userCalls";
 import {
   index as indexAccount,
   update as updateAccount,
@@ -35,9 +25,6 @@ import {
 import {
   create as createToken,
   read as readToken,
-  updateAccountActivation,
-  updatePasswordReset,
-  updateEmailChange,
 } from "../api/userTokenCalls";
 
 import type {
@@ -49,19 +36,11 @@ import type {
   UserDetailsUpdatingAction,
   RegistrationFormUpdatingAction,
   LoginFormUpdatingAction,
-  PasswordResetRequestFormUpdatingAction,
   PasswordChangeFormUpdatingAction,
-  EmailChangeFormUpdatingAction,
 } from "../actions/actionCreatorTypes.js.flow";
 import type { LoginFormData } from "../api/authorizationCalls";
 import type { RegistrationFormData } from "../api/userCalls";
 import type { PasswordChangeFormData } from "../api/accountCalls";
-import type {
-  PasswordResetRequestFormData,
-  EmailChangeFormData,
-  PasswordResetFormData,
-} from "../api/userTokenCalls";
-
 type LoginAction = UserIdentityUpdatingAction | LoginFormUpdatingAction;
 
 export function logIn(formData: LoginFormData): Function {
@@ -73,7 +52,8 @@ export function logIn(formData: LoginFormData): Function {
             type: USER_IDENTITY_UPDATE,
             token: response.body.attributes.accessToken,
           });
-          dispatch(push(ROUTE_HOME));
+          // dispatch(push(ROUTE_HOME));
+          dispatch(push(ROUTE_USER_DETAILS));
           break;
         case 401:
           dispatch({
@@ -93,7 +73,7 @@ export function logIn(formData: LoginFormData): Function {
 export function logOut(): Function {
   return (dispatch: Dispatch<UserIdentityUpdatingAction>): void => {
     dispatch({ type: USER_IDENTITY_UPDATE, token: null });
-    dispatch(push(ROUTE_HOME));
+    dispatch(push(ROUTE_LOGIN));
   };
 }
 
@@ -239,79 +219,6 @@ export function changePassword(formData: PasswordChangeFormData): Function {
     });
 }
 
-type PasswordResetRequestAction =
-  | AppNotificationAddingAction
-  | PasswordResetRequestFormUpdatingAction;
-
-export function requestPasswordReset(
-  formData: PasswordResetRequestFormData
-): Function {
-  return (dispatch: Dispatch<PasswordResetRequestAction>): Promise<void> =>
-    createToken(formData, false).then((response) => {
-      switch (response.status) {
-        case 200:
-          dispatch({
-            type: PASSWORD_RESET_REQUEST_FORM_UPDATE,
-            errors: {},
-            reset: true,
-          });
-          dispatch({
-            type: APP_NOTIFICATIONS_ADD,
-            tag: "success",
-            message:
-              "A message with a confirmation link has been sent to your email.",
-            redirect: false,
-          });
-          break;
-        case 422:
-          dispatch({
-            type: PASSWORD_RESET_REQUEST_FORM_UPDATE,
-            errors: response.body.errors,
-            reset: false,
-          });
-          break;
-        default:
-          throw new Error("Unexpected response returned.");
-      }
-    });
-}
-
-type EmailChangeAction =
-  | AppNotificationAddingAction
-  | UserIdentityUpdatingAction
-  | EmailChangeFormUpdatingAction;
-
-export function changeEmail(formData: EmailChangeFormData): Function {
-  return (dispatch: Dispatch<EmailChangeAction>): Promise<void> =>
-    createToken(formData, true).then((response) => {
-      switch (response.status) {
-        case 200:
-          dispatch({ type: EMAIL_CHANGE_FORM_UPDATE, errors: {}, reset: true });
-          dispatch({
-            type: APP_NOTIFICATIONS_ADD,
-            tag: "success",
-            message:
-              "A message with a confirmation link has been sent to your email.",
-            redirect: false,
-          });
-          break;
-        case 401:
-          dispatch({ type: USER_IDENTITY_UPDATE, token: null });
-          dispatch(push(ROUTE_LOGIN));
-          break;
-        case 422:
-          dispatch({
-            type: EMAIL_CHANGE_FORM_UPDATE,
-            errors: response.body.errors,
-            reset: false,
-          });
-          break;
-        default:
-          throw new Error("Unexpected response returned.");
-      }
-    });
-}
-
 export function viewToken(token: string): Function {
   return (dispatch: Dispatch<UserTokenUpdatingAction>): Promise<void> =>
     readToken(token).then((response) => {
@@ -350,7 +257,5 @@ export default {
   viewAccount,
   changePassword,
 
-  requestPasswordReset,
-  changeEmail,
   viewToken,
 };

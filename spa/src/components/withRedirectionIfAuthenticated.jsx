@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-import { ROUTE_HOME } from '../constants/routeConstants';
+import { ROUTE_LOGIN } from '../constants/routeConstants';
 
 import type { UserState, RootState } from '../reducers/reducerTypes.js.flow';
 
@@ -25,7 +25,7 @@ export default function withRedirectionIfAuthenticated(
     constructor(props: Props): void {
       super(props);
       if (props.user.identity.id !== null) {
-        props.dispatch(push(ROUTE_HOME));
+        props.dispatch(push(ROUTE_LOGIN));
       }
     }
 

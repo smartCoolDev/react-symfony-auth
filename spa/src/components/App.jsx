@@ -12,16 +12,13 @@ import Error401Page from './Error401Page';
 import Error403Page from './Error403Page';
 import Error404Page from './Error404Page';
 import Header from './Header';
-import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import RegistrationPage from './RegistrationPage';
 import UserDetailsPage from './UserDetailsPage';
 import withError404 from './withError404';
 import {
-  ROUTE_HOME,
   ROUTE_LOGIN,
   ROUTE_REGISTRATION,
-  ROUTE_USER_LIST,
   ROUTE_USER_DETAILS,
 } from '../constants/routeConstants';
 import appActionCreators from '../actions/appActionCreators';
@@ -91,7 +88,6 @@ class App extends React.Component<Props> {
         <Header />
         <div className="container">
           <Switch>
-            <Route exact path={ROUTE_HOME} component={HomePage} />
             <Route exact path={ROUTE_LOGIN} component={LoginPage} />
             <Route exact path={ROUTE_REGISTRATION} component={RegistrationPage} />
             <Route exact path={ROUTE_USER_DETAILS} component={UserDetailsPage} />
