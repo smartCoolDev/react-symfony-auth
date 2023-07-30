@@ -4,7 +4,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import LoginForm from './LoginForm';
-import { ROUTE_PASSWORD_RESET_REQUEST } from '../constants/routeConstants';
 import withRedirectionIfAuthenticated from './withRedirectionIfAuthenticated';
 
 function LoginPage(): React$Node {
@@ -14,9 +13,6 @@ function LoginPage(): React$Node {
       <div className="row">
         <div className="col col-md-6">
           <LoginForm />
-          <div className="mt-2">
-            <Link to={ROUTE_PASSWORD_RESET_REQUEST}>Forgot password?</Link>
-          </div>
         </div>
       </div>
     </main>

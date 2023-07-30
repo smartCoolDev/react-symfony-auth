@@ -11,7 +11,6 @@ import {
   ROUTE_HOME,
   ROUTE_LOGIN,
   ROUTE_REGISTRATION,
-  ROUTE_SETTINGS,
   ROUTE_USER_LIST,
   ROUTE_USER_DETAILS,
 } from '../constants/routeConstants';
@@ -47,7 +46,6 @@ class Header extends React.Component<Props> {
             className="nav-link"
             activeClassName="active"
           >Profile</NavLink>
-          <NavLink to={ROUTE_SETTINGS} className="nav-link" activeClassName="active">Settings</NavLink>
           <span
             tabIndex="0"
             role="button"
@@ -74,7 +72,6 @@ class Header extends React.Component<Props> {
           <div id="main-nav" className="collapse navbar-collapse">
             <ul className="navbar-nav">
               <NavLink exact to={ROUTE_HOME} className="nav-link" activeClassName="active">Home</NavLink>
-              <NavLink to={ROUTE_USER_LIST} className="nav-link" activeClassName="active">Users</NavLink>
             </ul>
             {navLinks}
           </div>

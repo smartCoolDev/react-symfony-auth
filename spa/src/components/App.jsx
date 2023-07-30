@@ -16,7 +16,6 @@ import Footer from './Footer';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import RegistrationPage from './RegistrationPage';
-import UserListPage from './UserListPage';
 import UserDetailsPage from './UserDetailsPage';
 import withError404 from './withError404';
 import {
@@ -25,10 +24,6 @@ import {
   ROUTE_REGISTRATION,
   ROUTE_USER_LIST,
   ROUTE_USER_DETAILS,
-  BACKEND_ROUTE_DASHBOARD,
-  BACKEND_ROUTE_USER_LIST,
-  BACKEND_ROUTE_USER_CREATION,
-  BACKEND_ROUTE_USER_DETAILS,
 } from '../constants/routeConstants';
 import appActionCreators from '../actions/appActionCreators';
 
@@ -91,32 +86,6 @@ class App extends React.Component<Props> {
       </div>
     );
 
-    if (this.props.location.pathname.substring(0, 6) === BACKEND_ROUTE_DASHBOARD) {
-      return (
-        <div>
-          {alerts.props.children !== null ? alerts : null}
-          <BackendHeader />
-          <div className="container">
-            <div className="row">
-              <div className="col col-md-2">
-                <BackendSidebar />
-              </div>
-              <div className="col col-md-10">
-                <Switch>
-                  <Route exact path={BACKEND_ROUTE_DASHBOARD} component={BackendDashboardPage} />
-                  <Route exact path={BACKEND_ROUTE_USER_LIST} component={BackendUserListPage} />
-                  <Route exact path={BACKEND_ROUTE_USER_CREATION} component={BackendUserCreationPage} />
-                  <Route exact path={BACKEND_ROUTE_USER_DETAILS} component={BackendUserDetailsPage} />
-                  <Route component={withError404(() => (null))} />
-                </Switch>
-              </div>
-            </div>
-            <BackendFooter />
-          </div>
-        </div>
-      );
-    }
-
     return (
       <div>
         {alerts.props.children !== null ? alerts : null}
@@ -126,7 +95,6 @@ class App extends React.Component<Props> {
             <Route exact path={ROUTE_HOME} component={HomePage} />
             <Route exact path={ROUTE_LOGIN} component={LoginPage} />
             <Route exact path={ROUTE_REGISTRATION} component={RegistrationPage} />
-            <Route exact path={ROUTE_USER_LIST} component={UserListPage} />
             <Route exact path={ROUTE_USER_DETAILS} component={UserDetailsPage} />
             <Route component={withError404(() => (null))} />
           </Switch>
