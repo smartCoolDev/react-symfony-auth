@@ -95,14 +95,14 @@ class JSONAuthenticator implements SimplePreAuthenticatorInterface, Authenticati
             throw new AuthenticationException('Invalid email or password.');
         }
 
-        switch ($user->getStatus()) {
-            case User::STATUS_INACTIVE:
-                throw new AuthenticationException('Account is inactive.');
-            case User::STATUS_CLOSED:
-                throw new AuthenticationException('Account is closed.');
-            case User::STATUS_BLOCKED:
-                throw new AuthenticationException('Account is blocked.');
-        }
+        // switch ($user->getStatus()) {
+        //     case User::STATUS_INACTIVE:
+        //         throw new AuthenticationException('Account is inactive.');
+        //     case User::STATUS_CLOSED:
+        //         throw new AuthenticationException('Account is closed.');
+        //     case User::STATUS_BLOCKED:
+        //         throw new AuthenticationException('Account is blocked.');
+        // }
         return new PreAuthenticatedToken($user, $credentials, $providerKey, $user->getRoles());
     }
 
