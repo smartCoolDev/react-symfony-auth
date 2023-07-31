@@ -29,10 +29,6 @@ class RegistrationType extends AbstractType
             ->add('password', null, ['constraints' => [
                 new NotBlank(),
                 new Length(['min' => 4]),
-            ]])
-            ->add('appURL', null, ['constraints' => [
-                new NotBlank(),
-                new Url(),
             ]]);
     }
 

@@ -20,11 +20,6 @@ class RegistrationDTO
     private $password;
 
     /**
-     * @var string|null
-     */
-    private $appURL;
-
-    /**
      * @param string $name
      */
     public function setName(string $name)
@@ -69,21 +64,5 @@ class RegistrationDTO
     public function getPassword(): ?string
     {
         return $this->password;
-    }
-
-    /**
-     * @param string $appURL
-     */
-    public function setAppURL(string $appURL)
-    {
-        $this->appURL = $appURL;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAppURL(): ?string
-    {
-        return $this->appURL;
     }
 }

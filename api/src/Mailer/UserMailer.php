@@ -11,7 +11,7 @@ class UserMailer
 {
     /**
      * @var Swift_Mailer
-     */
+    */
     private $mailer;
 
     /**
@@ -34,47 +34,6 @@ class UserMailer
         $this->mailer = $mailer;
         $this->engine = $engine;
         $this->parameters = $parameters;
-    }
-
-    /**
-     * @param User $user
-     * @param UserToken $token
-     * @param string $appURL
-     */
-    public function sendAccountActivationMessage(User $user, UserToken $token, string $appURL)
-    {
-        $url = trim($appURL, '/') . '/' . $token->getUUID();
-        $htmlTemplate = $this->engine->render('Mailer\user\account_activation.html.twig', ['confirmationURL' => $url]);
-        $txtTemplate = $this->engine->render('Mailer\user\account_activation.txt.twig', ['confirmationURL' => $url]);
-
-        $this->sendMessage('Account Activation', $user->getEmail(), $htmlTemplate, $txtTemplate);
-    }
-
-    /**
-     * @param User $user
-     * @param UserToken $token
-     * @param string $appURL
-     */
-    public function sendPasswordResetMessage(User $user, UserToken $token, string $appURL)
-    {
-        $url = trim($appURL, '/') . '/' . $token->getUUID();
-        $htmlTemplate = $this->engine->render('Mailer\user\password_reset.html.twig', ['confirmationURL' => $url]);
-        $txtTemplate = $this->engine->render('Mailer\user\password_reset.txt.twig', ['confirmationURL' => $url]);
-
-        $this->sendMessage('Password Reset', $user->getEmail(), $htmlTemplate, $txtTemplate);
-    }
-
-    /**
-     * @param UserToken $token
-     * @param string $appURL
-     */
-    public function sendEmailChangeMessage(UserToken $token, string $appURL)
-    {
-        $url = trim($appURL, '/') . '/' . $token->getUUID();
-        $htmlTemplate = $this->engine->render('Mailer\user\email_change.html.twig', ['confirmationURL' => $url]);
-        $txtTemplate = $this->engine->render('Mailer\user\email_change.txt.twig', ['confirmationURL' => $url]);
-
-        $this->sendMessage('Email Change', $token->getComment(), $htmlTemplate, $txtTemplate);
     }
 
     /**

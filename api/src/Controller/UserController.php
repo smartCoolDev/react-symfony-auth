@@ -241,23 +241,4 @@ class UserController
             ],
         ]);
     }
-
-    /**
-     * @Config\Route("/users/{id}", name="user_delete")
-     * @Config\Method("DELETE")
-     *
-     * @param string $id
-     *
-     * @return JsonResponse
-     */
-    public function delete(string $id): JsonResponse
-    {
-        $user = $this->userRepository->findByPK((int) $id);
-        if ($user === null) {
-            return new JsonResponse(['message' => 'User not found.'], JsonResponse::HTTP_NOT_FOUND);
-        }
-        $this->userRepository->remove($user);
-
-        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
-    }
 }

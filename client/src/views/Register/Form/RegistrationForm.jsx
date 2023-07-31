@@ -78,7 +78,6 @@ class RegistrationForm extends React.Component<Props, State> {
       name: this.state.values.name,
       email: this.state.values.email,
       password: this.state.values.password,
-      appURL: URL_APP_ACCOUNT_ACTIVATION_CONFIRMATION,
     };
     this.props.userMethods.register(data);
     this.setState({ isSubmitted: true });
