@@ -32,6 +32,12 @@ class User implements UserInterface, Serializable
      * @var int
      */
     private $id;
+    /**
+     * @ORM\Column(type="string", name="name", length=100, unique=true)
+     *
+     * @var string
+     */
+    private $name;
 
     /**
      * @ORM\Column(type="string", name="email", length=100, unique=true)
@@ -94,8 +100,9 @@ class User implements UserInterface, Serializable
      * @param int $role
      * @param int $status
      */
-    public function __construct(string $email, int $role = null, int $status = null)
+    public function __construct(string $name, string $email, int $role = null, int $status = null)
     {
+        $this->name = $name;
         $this->email = $email;
         $role === null ?: $this->role = $role;
         $status === null ?: $this->status = $status;
@@ -107,6 +114,14 @@ class User implements UserInterface, Serializable
      * {@inheritdoc}
      */
     public function getUsername(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -185,20 +200,21 @@ class User implements UserInterface, Serializable
         return $this->id;
     }
 
+   
+    /**
+     * @param string $name
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+    
     /**
      * @param string $email
      */
     public function setEmail(string $email)
     {
         $this->email = $email;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail(): string
-    {
-        return $this->email;
     }
 
     /**

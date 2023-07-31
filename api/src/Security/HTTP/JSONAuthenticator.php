@@ -103,7 +103,6 @@ class JSONAuthenticator implements SimplePreAuthenticatorInterface, Authenticati
             case User::STATUS_BLOCKED:
                 throw new AuthenticationException('Account is blocked.');
         }
-
         return new PreAuthenticatedToken($user, $credentials, $providerKey, $user->getRoles());
     }
 

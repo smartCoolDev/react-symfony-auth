@@ -7,6 +7,11 @@ class UserDTO
     /**
      * @var string|null
      */
+    private $name;
+    
+    /**
+     * @var string|null
+     */
     private $email;
 
     /**

@@ -16,6 +16,10 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('name', null, ['constraints' => [
+                new NotBlank(),
+                new Length(['max' => 100]),
+            ]])
             ->add('email', null, ['constraints' => [
                 new NotBlank(),
                 new Length(['max' => 100]),

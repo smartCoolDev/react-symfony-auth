@@ -6,7 +6,6 @@ use Swift_Mailer;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use App\Entity\{User, UserToken};
-use Psr\Log\LoggerInterface;
 
 class UserMailer
 {
@@ -24,22 +23,17 @@ class UserMailer
      * @var array
      */
     private $parameters;
-    
-    /**
-     * @var array
-     */    private $logger;
 
     /**
      * @param Swift_Mailer $mailer
      * @param EngineInterface $engine
      * @param array $parameters
      */
-    public function __construct(Swift_Mailer $mailer, EngineInterface $engine, array $parameters,LoggerInterface $logger)
+    public function __construct(Swift_Mailer $mailer, EngineInterface $engine, array $parameters)
     {
         $this->mailer = $mailer;
         $this->engine = $engine;
         $this->parameters = $parameters;
-        $this->logger = $logger;
     }
 
     /**
@@ -91,9 +85,6 @@ class UserMailer
      */
     private function sendMessage(string $subject, $recipientEmail, string $htmlTemplate, string $txtTemplate)
     {
-        $this->logger->info('this->parameters: ' , $this->parameters);
-        $this->logger->info('recipientEmail: ' . $recipientEmail);
-
         $message = (new Swift_Message())
             ->setSubject($subject)
             ->setFrom([$this->parameters['sender_email']['address'] => $this->parameters['sender_email']['name']])

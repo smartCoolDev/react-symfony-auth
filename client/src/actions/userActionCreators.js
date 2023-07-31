@@ -84,13 +84,12 @@ export function register(formData: RegistrationFormData): Function {
   return (dispatch: Dispatch<RegistrationAction>): Promise<void> =>
     create(formData, false).then((response) => {
       switch (response.status) {
-        case 201:
+        case 200:
           dispatch({ type: REGISTRATION_FORM_UPDATE, errors: {}, reset: true });
           dispatch({
             type: APP_NOTIFICATIONS_ADD,
             tag: "success",
-            message:
-              "A message with a confirmation link has been sent to your email.",
+            message: "A user successfully created.",
             redirect: false,
           });
           break;

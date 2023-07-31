@@ -8,7 +8,6 @@ import moment from 'moment';
 import type { Dispatch } from 'redux';
 
 import Loading from '../../components/common/Loading';
-import withErrorIfWrongRole from '../../components/HOC/withErrorIfWrongRole';
 import userActionCreators from '../../actions/userActionCreators';
 import { getValueAlias } from '../../utils/userHelper';
 
@@ -26,7 +25,6 @@ type State = {|
   attributes: {
     id?: number,
     email?: string,
-    role?: number,
     status?: number,
     createdAt?: Date,
     lastLoginAt?: Date,
@@ -57,7 +55,6 @@ class ProfilePage extends React.Component<Props, State> {
           <h1 className="mb-4">{attributes.email}</h1>
           <div>ID: {attributes.id}</div>
           <div>Email: {attributes.email}</div>
-          <div>Role: {getValueAlias('role', attributes.role)}</div>
           <div>Status: {getValueAlias('status', attributes.status)}</div>
           <div>Was registered: {moment(attributes.createdAt).startOf('hour').fromNow()}</div>
           <br />
@@ -78,4 +75,4 @@ function mapDispatchToProps(dispatch: Dispatch<*>): MappedDispatch {
   return { userMethods: bindActionCreators(userActionCreators, dispatch) };
 }
 
-export default withErrorIfWrongRole(connect(mapStateToProps, mapDispatchToProps)(ProfilePage));
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

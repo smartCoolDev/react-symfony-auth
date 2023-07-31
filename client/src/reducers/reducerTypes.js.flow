@@ -13,7 +13,6 @@ export type UserState = {
     +attributes: {
       +id?: number,
       +email?: string,
-      +role?: number,
       +status?: number,
       +createdAt?: Date,
       +lastLoginAt?: Date,
@@ -29,7 +28,6 @@ export type UserState = {
     +items: {
       +id: number,
       +email: string,
-      +role: number,
       +status: number,
     }[],
     +message: string | null,
@@ -39,7 +37,6 @@ export type UserState = {
     +attributes: {
       +id?: number,
       +email?: string,
-      +role?: number,
       +status?: number,
       +createdAt?: Date,
       +updatedAt?: Date | null,

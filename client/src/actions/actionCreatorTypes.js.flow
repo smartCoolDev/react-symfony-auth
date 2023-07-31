@@ -25,7 +25,6 @@ export type UserAccountUpdatingAction = {|
   +attributes: {
     +id: number,
     +email: string,
-    +role: number,
     +status: number,
     +createdAt: Date,
     +lastLoginAt: Date,
@@ -43,7 +42,6 @@ export type UserListUpdatingAction = {|
   +items: {
     +id: number,
     +email: string,
-    +role: number,
     +status: number,
   }[],
   +message: string | null,
@@ -54,7 +52,6 @@ export type UserDetailsUpdatingAction = {|
   +attributes: {
     +id?: number,
     +email?: string,
-    +role?: number,
     +status?: number,
     +createdAt?: Date,
     +updatedAt?: Date | null,
@@ -124,7 +121,6 @@ export type UserActionCreators = {|
   +viewOne: Function,
 
   +viewAccount: Function,
-  +changePassword: Function,
 
   +viewToken: Function,
   +confirmAccountActivation: Function,

@@ -7,6 +7,11 @@ class RegistrationDTO
     /**
      * @var string|null
      */
+    private $name;
+
+    /**
+     * @var string|null
+     */
     private $email;
 
     /**
@@ -19,6 +24,21 @@ class RegistrationDTO
      */
     private $appURL;
 
+    /**
+     * @param string $name
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
     /**
      * @param string $email
      */

@@ -2,9 +2,3 @@
 swiftmailer:
     #  send all emails to a specific address
     #delivery_addresses: ['me@example.com']
-    transport: smtp
-    host: smtp.gmail.com
-    port: 587
-    encryption: tls
-    username: blockchaindev0125
-    password: $Wanshai1997$

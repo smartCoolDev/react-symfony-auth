@@ -98,6 +98,7 @@ class UserController
         foreach ($users as $user) {
             $response['items'][] = [
                 'id' => $user->getID(),
+                'name' => $user->getUsername(),
                 'email' => $user->getEmail(),
                 'role' => $user->getRole(),
                 'status' => $user->getStatus(),
@@ -122,20 +123,6 @@ class UserController
     public function create(Request $request): JsonResponse
     {
         $body = (array) json_decode($request->getContent(), true);
-        if ($this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {
-            $dto = new UserDTO();
-            $form = $this->formFactory->create(UserCreationType::class, $dto);
-            $form->submit($body);
-            if (!$form->isValid()) {
-                $response = ['message' => 'Data validation failed.', 'errors' => (new FormHelper())->convertErrors($form)];
-
-                return new JsonResponse($response, JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
-            $user = new User($dto->getEmail(), $dto->getRole(), $dto->getStatus());
-            $user->setPasswordHash($this->encoder->encodePassword($user, $dto->getPassword()));
-            $this->userRepository->add($user);
-        } else {
             $dto = new RegistrationDTO();
             $form = $this->formFactory->create(RegistrationType::class, $dto);
             $form->submit($body);
@@ -145,16 +132,15 @@ class UserController
                 return new JsonResponse($response, JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
             }
 
-            $user = new User($dto->getEmail());
+            $user = new User($dto->getName(), $dto->getEmail());
             $user->setPasswordHash($this->encoder->encodePassword($user, $dto->getPassword()));
             $this->userRepository->add($user);
             $token = new UserToken($user, UserToken::TYPE_ACCOUNT_ACTIVATION);
             $this->tokenRepository->add($token);
-            $this->mailer->sendAccountActivationMessage($user, $token, $dto->getAppURL());
-        }
 
         $response = [
             'id' => $user->getID(),
+            'name' => $user->getUsername(),
             'email' => $user->getEmail(),
             'role' => $user->getRole(),
             'status' => $user->getStatus(),
@@ -166,7 +152,7 @@ class UserController
             'Location' => $this->router->generate('user_read', ['id' => $user->getId()], RouterInterface::ABSOLUTE_URL),
         ];
 
-        return new JsonResponse($response, JsonResponse::HTTP_CREATED, $headers);
+        return new JsonResponse($response, JsonResponse::HTTP_OK, $headers);
     }
 
     /**

@@ -1,7 +1,6 @@
 // @flow
 
 import {
-  ROLE_USER,
   STATUS_INACTIVE,
   STATUS_CLOSED,
   STATUS_BLOCKED,
@@ -12,7 +11,6 @@ import { decodePayload } from "../utils/jwtHelper";
 export type Identity = {|
   +id: number | null,
   +email: string | null,
-  +role: number | null,
   +status: number | null,
 |};
 
@@ -45,11 +43,10 @@ export function getIdentity(): Identity {
     return {
       id: identity.sub,
       email: identity.email,
-      role: identity.role,
       status: identity.status,
     };
   } catch (error) {
-    return { id: null, email: null, role: null, status: null };
+    return { id: null, email: null, status: null };
   }
 }
 
@@ -57,14 +54,12 @@ export function getValueAlias(
   group: string,
   value: number | null = null
 ): Object | string {
-  const role = [];
-  role[ROLE_USER] = "User";
   const status = [];
   status[STATUS_INACTIVE] = "Inactive";
   status[STATUS_CLOSED] = "Closed";
   status[STATUS_BLOCKED] = "Blocked";
   status[STATUS_ACTIVE] = "Active";
-  const aliases = { role, status };
+  const aliases = { status };
 
   return value === null ? aliases[group] : aliases[group][value];
 }

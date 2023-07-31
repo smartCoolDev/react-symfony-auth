@@ -30,7 +30,6 @@ type State = {|
   attributes: {
     id?: number,
     email?: string,
-    role?: number,
     status?: number,
     createdAt?: Date,
   },
@@ -71,7 +70,6 @@ class UserDetailsPage extends React.Component<Props, State> {
           <h1 className="mb-4">{attributes.email}</h1>
           <div>ID: {attributes.id}</div>
           <div>Email: {attributes.email}</div>
-          <div>Role: {getValueAlias('role', attributes.role)}</div>
           <div>Status: {getValueAlias('status', attributes.status)}</div>
           <div>Was registered: {moment(attributes.createdAt).startOf('hour').fromNow()}</div>
         </main>
