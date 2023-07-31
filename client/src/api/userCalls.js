@@ -64,22 +64,4 @@ export function update(
   );
 }
 
-export function destroy(id: string): Promise<Response | ResponseBody> {
-  const request = new Request(`${URL_API_BASE}/users/${id}`, {
-    method: "DELETE",
-    headers: new Headers({
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getAccessToken()}`,
-    }),
-  });
-
-  return fetch(request).then((response) => {
-    if (response.status === 204) {
-      return response;
-    }
-
-    return response.json().then((body) => ({ status: response.status, body }));
-  });
-}
-
-export default { index, create, read, update, destroy };
+export default { index, create, read, update };

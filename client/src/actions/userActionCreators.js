@@ -51,7 +51,6 @@ export function logIn(formData: LoginFormData): Function {
             type: USER_IDENTITY_UPDATE,
             token: response.body.attributes.accessToken,
           });
-          // dispatch(push(ROUTE_HOME));
           dispatch(push(ROUTE_USER_DETAILS));
           break;
         case 401:
@@ -106,32 +105,6 @@ export function register(formData: RegistrationFormData): Function {
     });
 }
 
-export function view(): Function {
-  return (dispatch: Dispatch<UserListUpdatingAction>): Promise<void> =>
-    index().then((response) => {
-      switch (response.status) {
-        case 200: {
-          dispatch({
-            type: USER_LIST_UPDATE,
-            items: response.body.items,
-            message: null,
-          });
-          break;
-        }
-        case 404: {
-          dispatch({
-            type: USER_LIST_UPDATE,
-            items: [],
-            message: response.body.message,
-          });
-          break;
-        }
-        default:
-          throw new Error("Unexpected response returned.");
-      }
-    });
-}
-
 export function viewOne(id: number): Function {
   return (dispatch: Dispatch<UserDetailsUpdatingAction>): Promise<void> =>
     read(id).then((response) => {
@@ -149,28 +122,6 @@ export function viewOne(id: number): Function {
             attributes: {},
             message: response.body.message,
           });
-          break;
-        default:
-          throw new Error("Unexpected response returned.");
-      }
-    });
-}
-
-type AccountViewAction = UserIdentityUpdatingAction | UserAccountUpdatingAction;
-
-export function viewAccount(): Function {
-  return (dispatch: Dispatch<AccountViewAction>): Promise<void> =>
-    indexAccount().then((response) => {
-      switch (response.status) {
-        case 200:
-          dispatch({
-            type: USER_ACCOUNT_UPDATE,
-            attributes: response.body.attributes,
-          });
-          break;
-        case 401:
-          dispatch({ type: USER_IDENTITY_UPDATE, token: null });
-          dispatch(push(ROUTE_LOGIN));
           break;
         default:
           throw new Error("Unexpected response returned.");
@@ -210,9 +161,7 @@ export default {
   logOut,
 
   register,
-  view,
   viewOne,
 
-  viewAccount,
   viewToken,
 };

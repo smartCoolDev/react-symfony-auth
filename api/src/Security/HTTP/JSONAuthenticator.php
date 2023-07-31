@@ -114,7 +114,6 @@ class JSONAuthenticator implements SimplePreAuthenticatorInterface, Authenticati
         $user = $token->getUser();
         $user->setLastLoginAt(new DateTimeImmutable());
         $this->userRepository->save($user);
-
         $response = ['attributes' => ['accessToken' => $this->tokenManager->create($user)]];
 
         return new JsonResponse($response, JsonResponse::HTTP_CREATED);
