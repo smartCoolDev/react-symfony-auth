@@ -31,7 +31,7 @@ class User implements UserInterface, Serializable
      */
     private $id;
     /**
-     * @ORM\Column(type="string", name="name", length=100, unique=true)
+     * @ORM\Column(type="string", name="name", length=100)
      *
      * @var string
      */
@@ -63,7 +63,36 @@ class User implements UserInterface, Serializable
      *
      * @var int
      */
-    private $status = self::STATUS_INACTIVE;
+    private $status = self::STATUS_ACTIVE;
+    // private $status = self::STATUS_INACTIVE;
+
+    /**
+     * @ORM\Column(type="string", name="house_number", length=100)
+     *
+     * @var string
+     */
+    private $houseNumber;
+
+    /**
+     * @ORM\Column(type="string", name="street_address", length=100)
+     *
+     * @var string
+     */
+    private $streetAddress;
+
+    /**
+     * @ORM\Column(type="string", name="city", length=100)
+*
+     * @var string
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", name="postcode", length=100)
+     *
+     * @var string
+     */
+    private $postcode;
 
     /**
      * @ORM\Column(type="datetime", name="created_at")
@@ -97,11 +126,30 @@ class User implements UserInterface, Serializable
      * @param string $email
      * @param int $role
      * @param int $status
+     * @param string $email
+     * @param string $houseNumber
+     * @param string $streetAddress
+     * @param string $city
+     * @param string $postcode
+     * 
      */
-    public function __construct(string $name, string $email, int $role = null, int $status = null)
+    public function __construct(
+        string $name, 
+        string $email, 
+        int $role = null, 
+        int $status = null, 
+        string $houseNumber = '', 
+        string $streetAddress = '', 
+        string $city = '',
+        string $postcode = ''
+    )
     {
         $this->name = $name;
         $this->email = $email;
+        $this->houseNumber = $houseNumber;
+        $this->streetAddress = $streetAddress;
+        $this->city = $city;
+        $this->postcode = $postcode;
         $role === null ?: $this->role = $role;
         $status === null ?: $this->status = $status;
         $this->createdAt = new DateTimeImmutable();
@@ -122,6 +170,38 @@ class User implements UserInterface, Serializable
     public function getEmail(): string
     {
         return $this->email;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPostCode(): string
+    {
+        return $this->postcode;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getHouseNumber(): string
+    {
+        return $this->houseNumber;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getStreetAddress(): string
+    {
+        return $this->streetAddress;
     }
 
     /**
@@ -169,8 +249,13 @@ class User implements UserInterface, Serializable
     {
         return serialize([
             $this->id,
+            $this->name,
             $this->email,
             $this->passwordHash,
+            $this->houseNumber,
+            $this->streetAddress,
+            $this->city,
+            $this->postcode
         ]);
     }
 
@@ -181,8 +266,13 @@ class User implements UserInterface, Serializable
     {
         list(
             $this->id,
+            $this->name,
             $this->email,
             $this->passwordHash,
+            $this->houseNumber,
+            $this->streetAddress,
+            $this->city,
+            $this->postcode
         ) = unserialize($data);
     }
 
@@ -243,6 +333,35 @@ class User implements UserInterface, Serializable
         return $this->role;
     }
 
+    /**
+     * @param string $city
+     */
+    public function setCity(string $city)
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @param string $houseNumber
+     */
+    public function setHouseNumber(string $houseNumber)
+    {
+        $this->houseNumber = $houseNumber;
+    }
+    /**
+     * @param string $streetAddress
+     */
+    public function setStreetAddress(string $streetAddress)
+    {
+        $this->streetAddress = $streetAddress;
+    }
+    /**
+     * @param string $postcode
+     */
+    public function setPostcode(string $postcode)
+    {
+        $this->postcode = $postcode;
+    }
     /**
      * @param int $status
      */

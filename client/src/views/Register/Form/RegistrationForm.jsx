@@ -153,7 +153,7 @@ class RegistrationForm extends React.Component<Props, State> {
       <input
         name="name"
         value={this.state.values.name}
-        className="form-control"
+        className="form-control w-100"
         placeholder='Name'
         onChange={this.handleChange}
         required
@@ -164,7 +164,7 @@ class RegistrationForm extends React.Component<Props, State> {
         name="email"
         placeholder='Email'
         value={this.state.values.email}
-        className="form-control"
+        className="form-control w-100"
         onChange={this.handleChange}
         required
       />
@@ -175,7 +175,7 @@ class RegistrationForm extends React.Component<Props, State> {
         type="password"
         name="password"
         value={this.state.values.password}
-        className="form-control"
+        className="form-control w-100"
         onChange={this.handleChange}
         required
       />
@@ -185,7 +185,7 @@ class RegistrationForm extends React.Component<Props, State> {
         type="password"
         name="passwordRepeat"
         value={this.state.values.passwordRepeat}
-        className="form-control"
+        className="form-control w-100"
         onChange={this.handleChange}
         required
       />
@@ -193,19 +193,19 @@ class RegistrationForm extends React.Component<Props, State> {
     if (this.state.isTouched) {
       nameInput = React.cloneElement(
         nameInput,
-        { className: this.state.errors.name !== '' ? 'form-control is-invalid' : 'form-control is-valid' },
+        { className: this.state.errors.name !== '' ? 'form-control is-invalid w-100' : 'form-control is-valid w-100' },
       );
       emailInput = React.cloneElement(
         emailInput,
-        { className: this.state.errors.email !== '' ? 'form-control is-invalid' : 'form-control is-valid' },
+        { className: this.state.errors.email !== '' ? 'form-control is-invalid w-100' : 'form-control is-valid w-100' },
       );
       passwordInput = React.cloneElement(
         passwordInput,
-        { className: this.state.errors.password !== '' ? 'form-control is-invalid' : 'form-control is-valid' },
+        { className: this.state.errors.password !== '' ? 'form-control is-invalid w-100' : 'form-control is-valid w-100' },
       );
       passwordRepeatInput = React.cloneElement(
         passwordRepeatInput,
-        { className: this.state.errors.passwordRepeat !== '' ? 'form-control is-invalid' : 'form-control is-valid' },
+        { className: this.state.errors.passwordRepeat !== '' ? 'form-control is-invalid w-100' : 'form-control is-valid w-100' },
       );
     }
 

@@ -90,11 +90,9 @@ class JSONAuthenticator implements SimplePreAuthenticatorInterface, Authenticati
         } catch (UsernameNotFoundException $exception) {
             throw new AuthenticationException('Invalid email or password.');
         }
-
         if (!$this->encoder->isPasswordValid($user, $credentials['password'])) {
             throw new AuthenticationException('Invalid email or password.');
         }
-
         // switch ($user->getStatus()) {
         //     case User::STATUS_INACTIVE:
         //         throw new AuthenticationException('Account is inactive.');
@@ -112,11 +110,11 @@ class JSONAuthenticator implements SimplePreAuthenticatorInterface, Authenticati
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): JsonResponse
     {
         $user = $token->getUser();
+        $userId = $user->getId(); 
         $user->setLastLoginAt(new DateTimeImmutable());
         $this->userRepository->save($user);
-        $response = ['attributes' => ['accessToken' => $this->tokenManager->create($user)]];
-
-        return new JsonResponse($response, JsonResponse::HTTP_CREATED);
+        $response = ['attributes' => ['accessToken' => $this->tokenManager->create($user), 'userID' => $userId]];
+        return new JsonResponse($response, JsonResponse::HTTP_OK);
     }
 
     /**

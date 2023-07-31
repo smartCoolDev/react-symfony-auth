@@ -51,15 +51,6 @@ export default function reduce(
           updatedAt: new Date(),
         },
       };
-    case USER_LIST_UPDATE:
-      return {
-        ...state,
-        list: {
-          items: action.items,
-          message: action.message,
-          updatedAt: new Date(),
-        },
-      };
     case USER_DETAILS_UPDATE:
       return {
         ...state,

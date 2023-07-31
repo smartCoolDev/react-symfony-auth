@@ -28,6 +28,42 @@ class UserDTO
      * @var int|null
      */
     private $status;
+    
+    /**
+     * @var string|null
+     */
+    private $postcode = '';
+    
+    /**
+     * @var string|null
+     */
+    private $city = '';
+    
+    /**
+     * @var string|null
+     */
+    private $houseNumber = '';
+    
+    /**
+     * @var string|null
+     */
+    private $streetAddress = '';
+
+        /**
+     * @param string $name
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
 
     /**
      * @param string $email
@@ -44,7 +80,72 @@ class UserDTO
     {
         return $this->email;
     }
+    
+    /**
+     * @param string|null $postcode
+     */
+    public function setPostCode(?string $postcode)
+    {
+        $this->postcode = $postcode !== null ? (string) $postcode : null;
 
+    }
+    /**
+     * @return string|null
+     */
+    public function getPostCode(): ?string
+    {
+        return $this->postcode;
+
+    }
+   
+    /**
+     * @param string|null $streetAddress
+     */
+    public function setStreetAddress(?string $streetAddress)
+    {
+        $this->streetAddress = $streetAddress !== null ? (string) $streetAddress : null;
+
+    }
+    /**
+     * @return string|null
+     */
+    public function getStreetAddress(): ?string
+    {
+        return $this->streetAddress;
+    }
+ 
+    /**
+     * @param string|null $houseNumber
+     */
+     public function setHouseNumber(?string $houseNumber): void
+    {
+        $this->houseNumber = $houseNumber !== null ? $houseNumber : '';
+    }
+    /**
+     * @return string|null
+     */
+    public function getHouseNumber(): ?string
+    {
+        return $this->houseNumber;
+    }
+
+    /**
+     * @param string|null $city
+     */
+    public function setCity(?string $city)
+    {
+        $this->city = $city !== null ? (string) $city : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    
     /**
      * @param string $password
      */

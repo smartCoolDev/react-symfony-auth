@@ -11,6 +11,15 @@ export type RegistrationFormData = {|
   +appURL: string,
 |};
 
+export type DetailsFormData = {|
+  +name: string,
+  +email: string,
+  +houseNumber: string,
+  +streetAddress: string,
+  +city: string,
+  +postcode: string,
+|};
+
 export function index(): Promise<ResponseBody> {
   const request = new Request(`${URL_API_BASE}/users`);
 
@@ -48,7 +57,7 @@ export function read(id: number): Promise<ResponseBody> {
 
 export function update(
   id: string,
-  formData: BackendUserUpdatingFormData
+  formData: DetailsFormData
 ): Promise<ResponseBody> {
   const request = new Request(`${URL_API_BASE}/users/${id}`, {
     method: "PATCH",

@@ -27,6 +27,8 @@ import appActionCreators from './actions/appActionCreators';
 import type { AppState, RootState } from '../reducers/reducerTypes.js.flow';
 import type { AppActionCreators } from '../actions/actionCreatorTypes.js.flow';
 
+import './App.css';
+
 type Router = {| +location: Object |};
 
 type MappedState = {| +app: AppState |};

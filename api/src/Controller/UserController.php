@@ -177,6 +177,11 @@ class UserController
                 'email' => $user->getEmail(),
                 'role' => $user->getRole(),
                 'status' => $user->getStatus(),
+                'name' => $user->getUsername(),
+                'city' => $user->getCity(),
+                'postcode' => $user->getPostCode(),
+                'houseNumber' => $user->getHouseNumber(),
+                'streetAddress' => $user->getStreetAddress(),
                 'createdAt' => $user->getCreatedAt(DATE_ATOM),
                 'updatedAt' => $user->getUpdatedAt(DATE_ATOM),
                 'lastLoginAt' => $user->getLastLoginAt(DATE_ATOM),
@@ -211,19 +216,25 @@ class UserController
         }
 
         $user->setEmail($dto->getEmail());
+        $user->setName($dto->getName());
+        $user->setCity($dto->getCity());
+        $user->setHouseNumber($dto->getHouseNumber());
+        $user->setStreetAddress($dto->getStreetAddress());
+        $user->setPostcode($dto->getPostCode());
         if ($dto->getPassword() !== null) {
             $user->setPasswordHash($this->encoder->encodePassword($user, $dto->getPassword()));
         }
-        $user->setRole($dto->getRole());
-        $user->setStatus($dto->getStatus());
         $this->userRepository->save($user);
 
         return new JsonResponse([
             'attributes' => [
                 'id' => $user->getID(),
+                'name' => $user->getUsername(),
                 'email' => $user->getEmail(),
-                'role' => $user->getRole(),
-                'status' => $user->getStatus(),
+                'city' => $user->getCity(),
+                'postcode' => $user->getPostCode(),
+                'houseNumber' => $user->getHouseNumber(),
+                'streetAddress' => $user->getStreetAddress(),
                 'createdAt' => $user->getCreatedAt(DATE_ATOM),
                 'updatedAt' => $user->getUpdatedAt(DATE_ATOM),
                 'lastLoginAt' => $user->getLastLoginAt(DATE_ATOM),

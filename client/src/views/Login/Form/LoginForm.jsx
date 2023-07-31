@@ -113,7 +113,7 @@ class LoginForm extends React.Component<Props, State> {
       <input
         name="email"
         value={this.state.values.email}
-        className="form-control"
+        className="form-control w-100"
         onChange={this.handleChange}
         placeholder='Enter your email'
         required
@@ -124,7 +124,7 @@ class LoginForm extends React.Component<Props, State> {
         type="password"
         name="password"
         value={this.state.values.password}
-        className="form-control"
+        className="form-control w-100"
         onChange={this.handleChange}
         required
       />
@@ -132,11 +132,11 @@ class LoginForm extends React.Component<Props, State> {
     if (this.state.isTouched) {
       emailInput = React.cloneElement(
         emailInput,
-        { className: this.state.errors.email !== '' ? 'form-control is-invalid' : 'form-control is-valid' },
+        { className: this.state.errors.email !== '' ? 'form-control is-invalid w-100' : 'form-control is-valid w-100' },
       );
       passwordInput = React.cloneElement(
         passwordInput,
-        { className: this.state.errors.password !== '' ? 'form-control is-invalid' : 'form-control is-valid' },
+        { className: this.state.errors.password !== '' ? 'form-control is-invalid w-100' : 'form-control is-valid w-100' },
       );
     }
 

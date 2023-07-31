@@ -16,7 +16,7 @@ import {
 } from "../constants/actionTypeConstants";
 import { ROUTE_LOGIN, ROUTE_USER_DETAILS } from "../constants/routeConstants";
 import { create as createAuthorization } from "../api/authorizationCalls";
-import { index, create, read } from "../api/userCalls";
+import { index, create, read, update } from "../api/userCalls";
 import {
   index as indexAccount,
   update as updateAccount,
@@ -29,29 +29,42 @@ import {
 import type {
   AppNotificationAddingAction,
   UserIdentityUpdatingAction,
-  UserAccountUpdatingAction,
-  UserTokenUpdatingAction,
-  UserListUpdatingAction,
   UserDetailsUpdatingAction,
-  RegistrationFormUpdatingAction,
   LoginFormUpdatingAction,
   PasswordChangeFormUpdatingAction,
 } from "../actions/actionCreatorTypes.js.flow";
 import type { LoginFormData } from "../api/authorizationCalls";
 import type { RegistrationFormData } from "../api/userCalls";
 import type { PasswordChangeFormData } from "../api/accountCalls";
+
 type LoginAction = UserIdentityUpdatingAction | LoginFormUpdatingAction;
+
+export type DetailsFormData = {|
+  +name: string,
+  +email: string,
+  +houseNumber: string,
+  +streetAddress: string,
+  +city: string,
+  +postcode: string,
+|};
 
 export function logIn(formData: LoginFormData): Function {
   return (dispatch: Dispatch<LoginAction>): Promise<void> =>
     createAuthorization(formData).then((response) => {
       switch (response.status) {
-        case 201:
+        case 200:
           dispatch({
             type: USER_IDENTITY_UPDATE,
             token: response.body.attributes.accessToken,
           });
-          dispatch(push(ROUTE_USER_DETAILS));
+          dispatch(
+            push(
+              ROUTE_USER_DETAILS.replace(
+                ":id",
+                String(response.body.attributes.userID)
+              )
+            )
+          );
           break;
         case 401:
           dispatch({
@@ -75,9 +88,7 @@ export function logOut(): Function {
   };
 }
 
-type RegistrationAction =
-  | AppNotificationAddingAction
-  | RegistrationFormUpdatingAction;
+type RegistrationAction = AppNotificationAddingAction;
 
 export function register(formData: RegistrationFormData): Function {
   return (dispatch: Dispatch<RegistrationAction>): Promise<void> =>
@@ -91,12 +102,43 @@ export function register(formData: RegistrationFormData): Function {
             message: "A user successfully created.",
             redirect: false,
           });
+          dispatch(push(ROUTE_LOGIN));
           break;
         case 422:
           dispatch({
             type: REGISTRATION_FORM_UPDATE,
             errors: response.body.errors,
             reset: false,
+          });
+          break;
+        default:
+          throw new Error("Unexpected response returned.");
+      }
+    });
+}
+
+export function updateDetails(id: string, formData: DetailsFormData): Function {
+  return (dispatch: Dispatch<UserDetailsUpdatingAction>): Promise<void> =>
+    update(id, formData).then((response) => {
+      switch (response.status) {
+        case 200:
+          dispatch({
+            type: USER_DETAILS_UPDATE,
+            attributes: response.body.attributes,
+            message: null,
+          });
+          dispatch({
+            type: APP_NOTIFICATIONS_ADD,
+            tag: "success",
+            message: "Your details have been updated.",
+            redirect: false,
+          });
+          break;
+        case 404:
+          dispatch({
+            type: USER_DETAILS_UPDATE,
+            attributes: {},
+            message: response.body.message,
           });
           break;
         default:
@@ -129,39 +171,10 @@ export function viewOne(id: number): Function {
     });
 }
 
-export function viewToken(token: string): Function {
-  return (dispatch: Dispatch<UserTokenUpdatingAction>): Promise<void> =>
-    readToken(token).then((response) => {
-      switch (response.status) {
-        case 200:
-          dispatch({
-            type: USER_TOKEN_UPDATE,
-            attributes: {
-              isUsed: Boolean(response.body.attributes.usedAt),
-              isExpired: response.body.attributes.isExpired,
-            },
-            message: null,
-          });
-          break;
-        case 404:
-          dispatch({
-            type: USER_TOKEN_UPDATE,
-            attributes: {},
-            message: response.body.message,
-          });
-          break;
-        default:
-          throw new Error("Unexpected response returned.");
-      }
-    });
-}
-
 export default {
   logIn,
   logOut,
-
+  updateDetails,
   register,
   viewOne,
-
-  viewToken,
 };

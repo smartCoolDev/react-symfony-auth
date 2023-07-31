@@ -41,11 +41,11 @@ class Header extends React.Component<Props> {
     if (this.props.user.identity.id !== null) {
       navLinks = (
         <ul className="navbar-nav ml-auto">
-          <NavLink
+          {/* <NavLink
             to={ROUTE_USER_DETAILS.replace(':id', String(this.props.user.identity.id))}
             className="nav-link"
             activeClassName="active"
-          >Profile</NavLink>
+          >Profile</NavLink> */}
           <span
             tabIndex="0"
             role="button"
