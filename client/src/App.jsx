@@ -80,7 +80,7 @@ class App extends React.Component<Props> {
     }
 
     const alerts:React$Element<'div'> = (
-      <div className="fixed-top w-50 mt-4 mr-4 ml-auto">
+      <div className="fixed-top mt-4 mr-4 ml-auto" style={{width: '30%'}}>
         {this.getAlerts()}
       </div>
     );

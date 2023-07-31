@@ -37,15 +37,9 @@ export type UserDetailsUpdatingAction = {|
   +message: string | null,
 |};
 
-export type LoginFormUpdatingAction = {|
-  type: 'LOGIN_FORM_UPDATE',
-  +errors: { [key: string]: string | Array<string> },
-|};
-
 export type UserAction =
   | UserIdentityUpdatingAction
   | UserDetailsUpdatingAction
-  | LoginFormUpdatingAction
 
 export type UserActionCreators = {|
   +logIn: Function,

@@ -4,9 +4,7 @@ import { LOCATION_CHANGE } from "react-router-redux";
 
 import {
   USER_IDENTITY_UPDATE,
-  USER_ACCOUNT_UPDATE,
   USER_TOKEN_UPDATE,
-  USER_LIST_UPDATE,
   USER_DETAILS_UPDATE,
   LOGIN_FORM_UPDATE,
   REGISTRATION_FORM_UPDATE,
@@ -37,11 +35,6 @@ export default function reduce(
       setAccessToken(action.token);
       return { ...state, identity: getIdentity() };
     }
-    case USER_ACCOUNT_UPDATE:
-      return {
-        ...state,
-        account: { attributes: action.attributes, updatedAt: new Date() },
-      };
     case USER_TOKEN_UPDATE:
       return {
         ...state,

@@ -279,7 +279,7 @@ class UserDetailsPage extends React.Component<Props, State> {
                 <div className="invalid-feedback">{this.state.errors.postcode}</div>
               </div>
               <div className='d-flex justify-content-end'>
-                <Button className='mr-4'>Cancel</Button>
+                <Button className='mr-4' onClick={(e) => e.preventDefault()}>Cancel</Button>
                 <Button type="submit">Save</Button>
               </div>
             </div>

@@ -7,9 +7,7 @@ import type { Dispatch } from "redux";
 import {
   APP_NOTIFICATIONS_ADD,
   USER_IDENTITY_UPDATE,
-  USER_ACCOUNT_UPDATE,
   USER_TOKEN_UPDATE,
-  USER_LIST_UPDATE,
   USER_DETAILS_UPDATE,
   LOGIN_FORM_UPDATE,
   REGISTRATION_FORM_UPDATE,
@@ -17,10 +15,6 @@ import {
 import { ROUTE_LOGIN, ROUTE_USER_DETAILS } from "../constants/routeConstants";
 import { create as createAuthorization } from "../api/authorizationCalls";
 import { index, create, read, update } from "../api/userCalls";
-import {
-  index as indexAccount,
-  update as updateAccount,
-} from "../api/accountCalls";
 import {
   create as createToken,
   read as readToken,
@@ -30,14 +24,12 @@ import type {
   AppNotificationAddingAction,
   UserIdentityUpdatingAction,
   UserDetailsUpdatingAction,
-  LoginFormUpdatingAction,
   PasswordChangeFormUpdatingAction,
 } from "../actions/actionCreatorTypes.js.flow";
 import type { LoginFormData } from "../api/authorizationCalls";
 import type { RegistrationFormData } from "../api/userCalls";
-import type { PasswordChangeFormData } from "../api/accountCalls";
 
-type LoginAction = UserIdentityUpdatingAction | LoginFormUpdatingAction;
+type LoginAction = UserIdentityUpdatingAction;
 
 export type DetailsFormData = {|
   +name: string,
