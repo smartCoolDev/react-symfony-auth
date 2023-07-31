@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration as Config;
 use App\Entity\{User, UserToken};
 use App\Repository\{UserRepository, UserTokenRepository};
 use App\DTO\{RegistrationDTO, UserDTO};
-use App\Form\Type\{RegistrationType, UserCreationType, UserUpdatingType};
+use App\Form\Type\{RegistrationType,  UserUpdatingType};
 use App\Form\Util\FormHelper;
 use App\Mailer\UserMailer;
 

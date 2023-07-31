@@ -12,8 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration as Config;
 use Ramsey\Uuid\Uuid;
 use App\Entity\{User, UserToken};
 use App\Repository\{UserRepository, UserTokenRepository};
-use App\DTO\{PasswordResetRequestDTO, EmailChangeDTO, PasswordResetDTO};
-use App\Form\Type\{AccountActivationType, PasswordResetRequestType, EmailChangeType, PasswordResetType};
 use App\Form\Util\FormHelper;
 use App\Mailer\UserMailer;
 
@@ -82,64 +80,6 @@ class UserTokenController
         $this->mailer = $mailer;
     }
 
-    /**
-     * @Config\Route("/user-tokens", name="user_token_create")
-     * @Config\Method("POST")
-     * @Config\Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
-     *
-     * @param Request $request
-     *
-     * @return JsonResponse
-     */
-    public function create(Request $request): JsonResponse
-    {
-        $body = (array) json_decode($request->getContent(), true);
-        if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
-            if (isset($body['emailChange'])) {
-                $dto = new EmailChangeDTO();
-                $form = $this->formFactory->create(EmailChangeType::class, $dto);
-                $form->submit($body['emailChange']);
-                if (!$form->isValid()) {
-                    $response = [
-                        'message' => 'Data validation failed.',
-                        'errors' => (new FormHelper())->convertErrors($form),
-                    ];
-
-                    return new JsonResponse($response, JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-                }
-
-                $user = $this->tokenStorage->getToken()->getUser();
-                $token = new UserToken($user, UserToken::TYPE_EMAIL_CHANGE, $dto->getNewEmail());
-                $this->tokenRepository->add($token);
-                $this->mailer->sendEmailChangeMessage($token, $dto->getAppURL());
-
-                return new JsonResponse();
-            }
-        } else {
-            if (isset($body['passwordReset'])) {
-                $dto = new PasswordResetRequestDTO();
-                $form = $this->formFactory->create(PasswordResetRequestType::class, $dto);
-                $form->submit($body['passwordReset']);
-                if (!$form->isValid()) {
-                    $response = [
-                        'message' => 'Data validation failed.',
-                        'errors' => (new FormHelper())->convertErrors($form),
-                    ];
-
-                    return new JsonResponse($response, JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-                }
-
-                $user = $this->userRepository->findOneByEmail($dto->getEmail());
-                $token = new UserToken($user, UserToken::TYPE_PASSWORD_RESET);
-                $this->tokenRepository->add($token);
-                $this->mailer->sendPasswordResetMessage($user, $token, $dto->getAppURL());
-
-                return new JsonResponse();
-            }
-        }
-
-        return new JsonResponse(['message' => 'Missing or invalid body parameters.'], JsonResponse::HTTP_BAD_REQUEST);
-    }
 
     /**
      * @Config\Route("/user-tokens/{token}", name="user_token_read")
