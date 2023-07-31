@@ -1,6 +1,4 @@
 security:
-    role_hierarchy:
-        ROLE_SUPER_ADMIN: ROLE_USER
     encoders:
         App\Entity\User:
             algorithm: argon2i

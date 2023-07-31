@@ -187,7 +187,6 @@ class UserController
     /**
      * @Config\Route("/users/{id}", name="user_update")
      * @Config\Method("PATCH")
-     * @Config\Security("is_granted('ROLE_SUPER_ADMIN')")
      *
      * @param Request $request
      * @param string $id
@@ -235,7 +234,6 @@ class UserController
     /**
      * @Config\Route("/users/{id}", name="user_delete")
      * @Config\Method("DELETE")
-     * @Config\Security("is_granted('ROLE_SUPER_ADMIN')")
      *
      * @param string $id
      *

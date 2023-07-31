@@ -17,8 +17,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface, Serializable
 {
     const ROLE_USER = 1;
-    const ROLE_SUPER_ADMIN = 100;
-
     const STATUS_INACTIVE = 1;
     const STATUS_CLOSED = 2;
     const STATUS_BLOCKED = 3;
@@ -151,10 +149,6 @@ class User implements UserInterface, Serializable
         switch ($this->role) {
             case self::ROLE_USER:
                 $roles[] = 'ROLE_USER';
-                break;
-            case self::ROLE_SUPER_ADMIN:
-                $roles[] = 'ROLE_USER';
-                $roles[] = 'ROLE_SUPER_ADMIN';
                 break;
         }
 

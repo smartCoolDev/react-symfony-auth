@@ -32,7 +32,6 @@ class UserUpdatingType extends AbstractType
                 new Choice([
                     'choices' => [
                         User::ROLE_USER,
-                        User::ROLE_SUPER_ADMIN,
                     ],
                     'strict' => true,
                 ]),
