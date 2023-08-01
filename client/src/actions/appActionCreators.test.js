@@ -1,5 +1,10 @@
 import { updateErrorCode, removeNotification } from "./appActionCreators";
 
+import {
+  APP_ERROR_CODE_UPDATE,
+  APP_NOTIFICATIONS_REMOVE,
+} from "../constants/actionTypeConstants";
+
 describe("updateErrorCode", () => {
   it("should return an action with the correct type and payload", () => {
     const code = 404;
