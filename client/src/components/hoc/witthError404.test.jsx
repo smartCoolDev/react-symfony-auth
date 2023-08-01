@@ -1,37 +1,47 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import appActionCreators from '../../actions/appActionCreators';
+import { render } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+import { push } from 'react-router-redux';
+import withRedirectionIfAuthenticated from './withRedirectionIfAuthenticated';
 
-import withError404 from './withError404';
+const MockComponent = () => <div>Mock component</div>;
 
-describe('withError404', () => {
-  const MockComponent = () => <div>Mock Component</div>;
-  const MockComponentWithHOC = withError404(MockComponent);
+describe('withRedirectionIfAuthenticated', () => {
+  const mockStore = configureStore();
+  const initialState = { user: { identity: { id: null } } };
+  const store = mockStore(initialState);
 
-  it('should render the wrapped component', () => {
-    const wrapper = shallow(<MockComponentWithHOC />);
-    expect(wrapper.find(MockComponent)).toHaveLength(1);
+  it('renders without crashing', () => {
+    const WithRedirectionIfAuthenticated = withRedirectionIfAuthenticated(MockComponent);
+    render(
+      <Provider store={store}>
+        <WithRedirectionIfAuthenticated />
+      </Provider>
+    );
   });
 
-  it('should update the error code on mount', () => {
-    const mockUpdateErrorCode = jest.fn();
-    const mockAppActionCreators = { updateErrorCode: mockUpdateErrorCode };
-    jest.spyOn(appActionCreators, 'default').mockReturnValue(mockAppActionCreators);
-
-    shallow(<MockComponentWithHOC />);
-    expect(mockUpdateErrorCode).toHaveBeenCalledWith(404);
+  it('dispatches push action if user is authenticated', () => {
+    const dispatch = jest.fn();
+    const user = { identity: { id: 1 } };
+    const WithRedirectionIfAuthenticated = withRedirectionIfAuthenticated(MockComponent);
+    render(
+      <Provider store={store}>
+        <WithRedirectionIfAuthenticated user={user} dispatch={dispatch} />
+      </Provider>
+    );
+    expect(dispatch).toHaveBeenCalledWith(push(ROUTE_LOGIN));
   });
 
-  it('should map dispatch to props correctly', () => {
-    const mockDispatch = jest.fn();
-    jest.spyOn(React, 'useContext').mockReturnValue(mockDispatch);
-
-    const mapDispatchToProps = (dispatch) => ({ appMethods: bindActionCreators(appActionCreators, dispatch) });
-    const ConnectedWithError404 = connect(null, mapDispatchToProps)(WithError404);
-    shallow(<ConnectedWithError404 />);
-
-    expect(mockDispatch).toHaveBeenCalledWith(appActionCreators.updateErrorCode(404));
+  it('does not dispatch push action if user is not authenticated', () => {
+    const dispatch = jest.fn();
+    const user = { identity: { id: null } };
+    const WithRedirectionIfAuthenticated = withRedirectionIfAuthenticated(MockComponent);
+    render(
+      <Provider store={store}>
+        <WithRedirectionIfAuthenticated user={user} dispatch={dispatch} />
+      </Provider>
+    );
+    expect(dispatch).not.toHaveBeenCalled();
   });
 });

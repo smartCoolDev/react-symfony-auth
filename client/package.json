@@ -7,9 +7,11 @@
     "start": "webpack-dev-server --config webpack/config.dev.js --progress --content-base ./public --output-public-path /build/ --host 0.0.0.0 --port 3000 --watch-poll",
     "build": "webpack --config webpack/config.prod.js",
     "flow": "flow --include-warnings",
-    "lint": "eslint webpack/* src/** --ext .js,.jsx,.flow"
+    "lint": "eslint webpack/* src/** --ext .js,.jsx,.flow",
+    "test": "jest"
   },
   "devDependencies": {
+    "@testing-library/react": "^8.0.3",
     "autoprefixer": "^7.1.3",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",

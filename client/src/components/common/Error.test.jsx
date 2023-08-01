@@ -1,17 +1,21 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import Error from './path/to/your/component';
+import { render } from '@testing-library/react';
+import Error from './Error';
 
 describe('Error', () => {
-  it('should render with default props if none are passed', () => {
-    const wrapper = shallow(<Error />);
-    expect(wrapper.find('h1').text()).toEqual('Error');
-    expect(wrapper.find('p').text()).toEqual('Unexpected error occurred.');
+  it('renders without crashing', () => {
+    render(<Error />);
   });
 
-  it('should render with custom props if they are passed', () => {
-    const wrapper = shallow(<Error heading="Custom Heading" message="Custom Message" />);
-    expect(wrapper.find('h1').text()).toEqual('Custom Heading');
-    expect(wrapper.find('p').text()).toEqual('Custom Message');
+  it('renders heading and message', () => {
+    const { getByRole, getByText } = render(<Error heading="Oops" message="Something went wrong." />);
+    expect(getByRole('heading')).toHaveTextContent('Oops');
+    expect(getByText('Something went wrong.')).toBeInTheDocument();
+  });
+
+  it('renders default heading and message', () => {
+    const { getByRole, getByText } = render(<Error />);
+    expect(getByRole('heading')).toHaveTextContent('Error');
+    expect(getByText('Unexpected error occurred.')).toBeInTheDocument();
   });
 });
