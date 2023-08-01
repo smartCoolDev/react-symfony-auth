@@ -15,10 +15,6 @@ import {
 import { ROUTE_LOGIN, ROUTE_USER_DETAILS } from "../constants/routeConstants";
 import { create as createAuthorization } from "../api/authorizationCalls";
 import { index, create, read, update } from "../api/userCalls";
-import {
-  create as createToken,
-  read as readToken,
-} from "../api/userTokenCalls";
 
 import type {
   AppNotificationAddingAction,
