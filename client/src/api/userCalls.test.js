@@ -1,3 +1,4 @@
+import fetch, { Request, Headers } from "node-fetch";
 import { index, create, read, update } from "./userCalls";
 
 describe("index", () => {

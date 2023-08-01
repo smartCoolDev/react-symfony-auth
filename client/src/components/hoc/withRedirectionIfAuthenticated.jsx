@@ -30,7 +30,7 @@ export default function withRedirectionIfAuthenticated(
     }
 
     render(): React$Node {
-      return <WrappedComponent />;
+      return <WrappedComponent/>;
     }
   }
 

@@ -8,7 +8,9 @@ describe('Footer', () => {
   });
 
   it('renders the review link', () => {
-    const { getByText } = render(<Footer />);
-    expect(getByText('review')).toBeInTheDocument();
-  });
+    const { queryAllByText } = render(<Footer />);
+    const reviewLinks = queryAllByText('review');
+    expect(reviewLinks.length).toBeGreaterThan(0);
+});
+
 });

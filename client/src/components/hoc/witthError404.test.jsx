@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { push } from 'react-router-redux';
 import withRedirectionIfAuthenticated from './withRedirectionIfAuthenticated';
+import { ROUTE_LOGIN } from '../../constants/routeConstants';
 
 const MockComponent = () => <div>Mock component</div>;
 

@@ -1,5 +1,6 @@
 // @flow
 
+import fetch, { Request, Headers } from "node-fetch";
 import { URL_API_BASE } from "../constants/callConstants";
 
 import type { ResponseBody } from "./callTypes.js.flow";

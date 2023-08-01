@@ -4,7 +4,7 @@ import React from 'react';
 import LoginForm from './Form/LoginForm';
 import withRedirectionIfAuthenticated from '../../components/hoc/withRedirectionIfAuthenticated';
 
-import './login.css'
+import './login.css';
 
 function LoginPage(): React$Node {
   return (

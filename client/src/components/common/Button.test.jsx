@@ -41,7 +41,8 @@ describe('Button', () => {
   it('calls onClick prop when clicked', () => {
     const handleClick = jest.fn();
     const { getByRole } = render(<Button onClick={handleClick}>Click me</Button>);
-    fireEvent.click(getByRole('button'));
+    const button = getByRole('button', { name: 'Click me' });
+    fireEvent.click(button);
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 });

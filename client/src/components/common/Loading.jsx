@@ -17,6 +17,7 @@ export default function Loading(): React$Node {
         viewBox="0 0 40 40"
         enableBackground="new 0 0 40 40"
         xmlSpace="preserve"
+        data-testid="loading-svg"
       >
         <path
           opacity="0.2"

@@ -17,7 +17,7 @@ import userActionCreators from '../../actions/userActionCreators';
 import type { UserState, RootState } from '../reducers/reducerTypes.js.flow';
 import type { UserActionCreators } from '../actions/actionCreatorTypes.js.flow';
 
-import './layout.css'
+import './layout.css';
 
 type MappedState = {| +user: UserState |};
 

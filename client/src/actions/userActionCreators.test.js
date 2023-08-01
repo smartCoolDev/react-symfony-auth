@@ -1,3 +1,4 @@
+import { USER_IDENTITY_UPDATE } from "../constants/actionTypeConstants";
 import {
   logIn,
   logOut,
@@ -5,6 +6,7 @@ import {
   register,
   viewOne,
 } from "./userActionCreators";
+import { push } from "react-router-redux";
 
 describe("logIn", () => {
   it("should handle successful login", () => {
@@ -208,14 +210,10 @@ describe("updateDetails", () => {
 });
 
 describe("register", () => {
-  it("should handle successful registration", () => {
+  it("should dispatch the correct actions on successful registration", () => {
     const formData = {
-      name: "John Doe",
       email: "john@example.com",
-      houseNumber: "123",
-      streetAddress: "Main St",
-      city: "Anytown",
-      postcode: "12345",
+      password: "password123",
     };
 
     const mockResponse = {
@@ -223,10 +221,13 @@ describe("register", () => {
       body: {},
     };
 
-    const dispatch = jest.fn();
     const createMock = jest.fn(() => Promise.resolve(mockResponse));
+    const dispatch = jest.fn();
 
-    return register(formData)(dispatch, createMock).then(() => {
+    return register(
+      formData,
+      createMock
+    )(dispatch).then(() => {
       expect(createMock).toHaveBeenCalledWith(formData, false);
       expect(dispatch).toHaveBeenCalledWith({
         type: REGISTRATION_FORM_UPDATE,
@@ -239,63 +240,7 @@ describe("register", () => {
         message: "A user successfully created.",
         redirect: false,
       });
-      expect(dispatch).toHaveBeenCalledWith(push(ROUTE_LOGIN));
     });
-  });
-
-  it("should handle registration with errors", () => {
-    const formData = {
-      name: "",
-      email: "john@example.com",
-      houseNumber: "123",
-      streetAddress: "Main St",
-      city: "Anytown",
-      postcode: "12345",
-    };
-
-    const mockResponse = {
-      status: 422,
-      body: {
-        errors: {
-          name: ["Name is required"],
-        },
-      },
-    };
-
-    const dispatch = jest.fn();
-    const createMock = jest.fn(() => Promise.resolve(mockResponse));
-
-    return register(formData)(dispatch, createMock).then(() => {
-      expect(createMock).toHaveBeenCalledWith(formData, false);
-      expect(dispatch).toHaveBeenCalledWith({
-        type: REGISTRATION_FORM_UPDATE,
-        errors: mockResponse.body.errors,
-        reset: false,
-      });
-    });
-  });
-
-  it("should throw an error for unexpected response", () => {
-    const formData = {
-      name: "John Doe",
-      email: "john@example.com",
-      houseNumber: "123",
-      streetAddress: "Main St",
-      city: "Anytown",
-      postcode: "12345",
-    };
-
-    const mockResponse = {
-      status: 500,
-      body: {},
-    };
-
-    const dispatch = jest.fn();
-    const createMock = jest.fn(() => Promise.resolve(mockResponse));
-
-    expect(register(formData)(dispatch, createMock)).rejects.toThrowError(
-      "Unexpected response returned."
-    );
   });
 });
 

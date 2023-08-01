@@ -1,3 +1,4 @@
+import { Request } from "node-fetch";
 import { create } from "./authorizationCalls";
 
 describe("create", () => {

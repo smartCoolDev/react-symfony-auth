@@ -80,83 +80,102 @@ type RegistrationAction = AppNotificationAddingAction;
 
 export function register(formData: RegistrationFormData): Function {
   return (dispatch: Dispatch<RegistrationAction>): Promise<void> =>
-    create(formData, false).then((response) => {
-      switch (response.status) {
-        case 200:
-          dispatch({ type: REGISTRATION_FORM_UPDATE, errors: {}, reset: true });
-          dispatch({
-            type: APP_NOTIFICATIONS_ADD,
-            tag: "success",
-            message: "A user successfully created.",
-            redirect: false,
-          });
-          dispatch(push(ROUTE_LOGIN));
-          break;
-        case 422:
-          dispatch({
-            type: REGISTRATION_FORM_UPDATE,
-            errors: response.body.errors,
-            reset: false,
-          });
-          break;
-        default:
-          throw new Error("Unexpected response returned.");
-      }
-    });
+    create(formData, false)
+      .then((response) => {
+        switch (response.status) {
+          case 200:
+            dispatch({
+              type: REGISTRATION_FORM_UPDATE,
+              errors: {},
+              reset: true,
+            });
+            dispatch({
+              type: APP_NOTIFICATIONS_ADD,
+              tag: "success",
+              message: "A user successfully created.",
+              redirect: false,
+            });
+            dispatch(push(ROUTE_LOGIN));
+            break;
+          case 422:
+            dispatch({
+              type: REGISTRATION_FORM_UPDATE,
+              errors: response.body.errors,
+              reset: false,
+            });
+            break;
+          default:
+            throw new Error("Unexpected response returned.");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
 }
 
 export function updateDetails(id: string, formData: DetailsFormData): Function {
   return (dispatch: Dispatch<UserDetailsUpdatingAction>): Promise<void> =>
-    update(id, formData).then((response) => {
-      switch (response.status) {
-        case 200:
-          dispatch({
-            type: USER_DETAILS_UPDATE,
-            attributes: response.body.attributes,
-            message: null,
-          });
-          dispatch({
-            type: APP_NOTIFICATIONS_ADD,
-            tag: "success",
-            message: "Your details have been updated.",
-            redirect: false,
-          });
-          break;
-        case 404:
-          dispatch({
-            type: USER_DETAILS_UPDATE,
-            attributes: {},
-            message: response.body.message,
-          });
-          break;
-        default:
-          throw new Error("Unexpected response returned.");
-      }
-    });
+    update(id, formData)
+      .then((response) => {
+        switch (response.status) {
+          case 200:
+            dispatch({
+              type: USER_DETAILS_UPDATE,
+              attributes: response.body.attributes,
+              message: null,
+            });
+            dispatch({
+              type: APP_NOTIFICATIONS_ADD,
+              tag: "success",
+              message: "Your details have been updated.",
+              redirect: false,
+            });
+            break;
+          case 404:
+            dispatch({
+              type: USER_DETAILS_UPDATE,
+              attributes: {},
+              message: response.body.message,
+            });
+            break;
+          default:
+            throw new Error("Unexpected response returned.");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
 }
 
 export function viewOne(id: number): Function {
   return (dispatch: Dispatch<UserDetailsUpdatingAction>): Promise<void> =>
-    read(id).then((response) => {
-      switch (response.status) {
-        case 200:
-          dispatch({
-            type: USER_DETAILS_UPDATE,
-            attributes: response.body.attributes,
-            message: null,
-          });
-          break;
-        case 404:
-          dispatch({
-            type: USER_DETAILS_UPDATE,
-            attributes: {},
-            message: response.body.message,
-          });
-          break;
-        default:
-          throw new Error("Unexpected response returned.");
-      }
-    });
+    read(id)
+      .then((response) => {
+        switch (response.status) {
+          case 200:
+            dispatch({
+              type: USER_DETAILS_UPDATE,
+              attributes: response.body.attributes,
+              message: null,
+            });
+            break;
+          case 404:
+            dispatch({
+              type: USER_DETAILS_UPDATE,
+              attributes: {},
+              message: response.body.message,
+            });
+            break;
+          default:
+            throw new Error("Unexpected response returned.");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
 }
 
 export default {
